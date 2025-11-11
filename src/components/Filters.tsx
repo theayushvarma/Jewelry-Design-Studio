@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useDiamondSearchFilter } from "@/hooks/useDiamondSearchFilter";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useConfig } from "@/hooks/useConfig";
+import Price from "./filters/Price";
 
 const CameraIcon = ({ isAdvanceFilterOpen }) => {
   return isAdvanceFilterOpen ? <ChevronUp /> : <ChevronDown />;
@@ -42,45 +43,19 @@ const Filters = () => {
     >
       <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5 ">
         {filterOptions["shape"]?.length && <Shape />}
-
-        {isFancyActive
-          ? filterOptions["fancy_color"]?.length && (
-              <FancyColor
-                isFancyActive={isFancyActive}
-                toggleFancyActive={toggleFancyActive}
-              />
-            )
-          : filterOptions["color"]?.length && (
-              <Color
-                isFancyActive={isFancyActive}
-                toggleFancyActive={toggleFancyActive}
-              />
-            )}
         {filterOptions["carat"]?.length && <Carat />}
-        {filterOptions["clarity"]?.length && <Clarity />}
-        {filterOptions["cut"]?.length && <Cut />}
-        {filterOptions["polish"]?.length && <Polish />}
-        {filterOptions["symmetry"]?.length && <Symmetry />}
 
-        {isAdvanceFilterOpen && (
-          <>
-            {filterOptions["fluorescence"]?.length && <Fluorescence />}
-            {filterOptions["lab"]?.length && <Lab />}
-            {filterOptions["table"]?.length && <Table />}
-            {filterOptions["depth"]?.length && <Depth />}
-          </>
+        {filterOptions["color"]?.length && (
+          <Color
+            isFancyActive={isFancyActive}
+            toggleFancyActive={toggleFancyActive}
+          />
         )}
+        {filterOptions["clarity"]?.length && <Clarity />}
+        {filters?.shape?.includes("round") && filterOptions["cut"]?.length && <Cut />}
+        {filterOptions["lab"]?.length && <Lab />}
+        {filterOptions["price"]?.length && <Price />}
       </CardBody>
-      <Divider />
-      <CardFooter className="justify-center">
-        <Button
-          onClick={() => toggleAdvanceFilter()}
-          color="primary"
-          endContent={<CameraIcon isAdvanceFilterOpen={isAdvanceFilterOpen} />}
-        >
-          {isAdvanceFilterOpen ? "Hide" : "Show"} Advance Filters
-        </Button>
-      </CardFooter>
     </Card>
   );
 };

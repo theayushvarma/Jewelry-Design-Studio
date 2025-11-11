@@ -8,7 +8,7 @@ import LabelTooltip from "@/components/common/LabelTooltip";
 const Shape = () => {
   const { handleDataClick, isDataSelected, data } = useSelectionFilter("shape");
   return (
-    <div className="w-full space-y-2 col-span-full">
+    <div className="w-full space-y-2">
       {/* Label + Tooltip */}
       <LabelTooltip keyName="shape" />
 

@@ -27,7 +27,7 @@ export default function ListViewSkeleton({ times = 5 }) {
     ];
 
     if (configData?.display_price === 1) {
-      baseColumns.push({ name: "Price", uid: "net_price" });
+      baseColumns.push({ name: "Price", uid: "priceAUD" });
     }
 
     baseColumns.push({ name: "Action", uid: "certificate_no" });

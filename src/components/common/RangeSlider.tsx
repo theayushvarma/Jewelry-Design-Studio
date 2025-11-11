@@ -17,7 +17,7 @@ const RangeSlider = ({ keyName, resetSignal }) => {
       ? rawData[1]
       : Object.keys(rawData).length - 1;
 
-  const step = isRangeKey ? 0.1 : 1;
+  const step = keyName == "price" ? 100 :  isRangeKey ? 0.1 : 1;
 
   const [range, setRange] = useState([min, max]);
   const [marks, setMarks] = useState([]);

@@ -74,7 +74,7 @@ const GridView: React.FC<GridViewProps> = memo(({ onOpen, setActiveData }) => {
             {configData?.display_price == 1 && (
               <b>
                 {" "}
-                {formatPrice(item?.net_price, item?.currency_symbol)}
+                {formatPrice(item?.priceAUD, item?.currency_symbol)}
               </b>
             )}
           </CardFooter>

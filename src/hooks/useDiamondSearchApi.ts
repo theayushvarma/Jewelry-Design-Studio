@@ -10,79 +10,87 @@ import {
 } from "@/store/slices/diamondSearchApiSlice";
 import api from "@/axios";
 
-interface FilterParams {
-  token: string;
-  diamond_type: string;
-  carat: string;
-  clarity: string;
-  color: string;
-  cut: string;
-  fluorescence: string;
-  lab: string;
-  polish: string;
-  shape: string;
-  symmetry: string;
-  page: number;
-}
-
 export const useDiamondSearchApi = () => {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState) => state.diamondSearchApi);
 
-  const fetchDiamonds = async (filters: FilterParams, isLoadMore = false) => {
+  const fetchDiamonds = async (
+    filters: any,
+    isLoadMore = false,
+  ) => {
     try {
-      if (isLoadMore) {
-        dispatch(fetchMoreStart());
-      } else {
-        dispatch(fetchStart());
-      }
+      if (isLoadMore) dispatch(fetchMoreStart());
+      else dispatch(fetchStart());
 
-      const response = await api.post(
-        `/wh_search_diamond?page=${filters.page}`,
-        filters
+      // Build query params dynamically
+      const params: Record<string, any> = {};
+
+      // Standard params (pagination, filtering, sorting)
+      if (filters.page) params.page = filters.page;
+      if (filters.limit) params.limit = filters.limit;
+      if (filters.search) params.search = filters.search;
+      if (filters.filter) params.filter = filters.filter;
+      if (filters.sortBy) params.sortBy = filters.sortBy;
+      if (filters.order) params.order = filters.order;
+
+      // Add dynamic fields (like title, completed, color etc.)
+      Object.entries(filters).forEach(([key, value]) => {
+        if (
+          !["page", "limit", "search", "filter", "sortBy", "order"].includes(
+            key
+          ) &&
+          value !== undefined &&
+          value !== null &&
+          value !== ""
+        ) {
+          params[key] = value;
+        }
+      });
+
+      // API call using your axios instance
+      const response = await api.get(
+        "/diamonds",
+        { params }
       );
 
-      const result = response.data;
-      const diamonds = result.data?.data || [];
-      const total = result.data?.total || 0;
-      const current_page = result.data?.current_page || 1;
-      const last_page = result.data?.last_page || 1;
+      // MockAPI returns array directly
+      const diamonds = Array.isArray(response.data)
+        ? response.data
+        : response.data.data || [];
+      const total = diamonds.length;
+      const current_page = filters.page || 1;
+      const last_page = filters.limit
+        ? Math.ceil(total / (filters.limit || 1))
+        : current_page;
 
-      if (response.data.success) {
+      // Handle success
+      if (diamonds.length > 0) {
         if (isLoadMore) {
           dispatch(
             appendData({
               data: diamonds,
-              page: filters.page,
-              total: total,
-              last_page: last_page,
-              current_page: current_page,
+              page: current_page,
+              total,
+              last_page,
+              current_page,
             })
           );
         } else {
-          if (diamonds?.length) {
-            dispatch(
-              fetchSuccess({
-                data: diamonds,
-                total,
-                page: filters.page,
-                last_page: last_page,
-                current_page: current_page,
-              })
-            );
-          } else {
-            dispatch(fetchFailure("No Data Found!"));
-          }
+          dispatch(
+            fetchSuccess({
+              data: diamonds,
+              total,
+              page: current_page,
+              last_page,
+              current_page,
+            })
+          );
         }
       } else {
-        dispatch(
-          fetchFailure(response.data.message || "Failed to fetch diamond data")
-        );
+        dispatch(fetchFailure("No Data Found!"));
       }
     } catch (error: any) {
-      if (!error.isCancelled) {
-        dispatch(fetchFailure(error.message || "Failed to fetch diamond data"));
-      }
+      dispatch(fetchFailure(error.message || "Failed to fetch diamond data"));
     }
   };
 

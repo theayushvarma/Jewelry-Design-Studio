@@ -20,7 +20,7 @@ import GlobalToast from "@/hooks/useGlobalToast";
 import { ToastProvider } from "@heroui/react";
 import useGlobalToast from "@/hooks/useGlobalToast";
 
-export default function IndexPage() {
+export default function DiamondPage() {
   const [activeData, setActiveData] = useState({});
   const { viewType, isFilterOpen, filters } = useDiamondSearchFilter();
   const { isOpen, onClose, onOpen, onOpenChange } = useModal();

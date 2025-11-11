@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from "axios";
 
 const baseURL =
-  import.meta.env.VITE_PUBLIC_API_BASE_URL || "https://thediamondport.com/api";
+  import.meta.env.VITE_PUBLIC_API_BASE_URL || "https://6912d3e352a60f10c822e56a.mockapi.io/api/filter";
 
 // Create axios instance
 const api: AxiosInstance = axios.create({

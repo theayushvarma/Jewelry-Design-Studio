@@ -208,7 +208,7 @@ export default function DiamondDetailModal({
                         <b aria-label="Price label">Price</b>
                         <span className="text-xl font-bold">
                           {formatPrice(
-                            activeData?.net_price,
+                            activeData?.priceAUD,
                             activeData?.currency_symbol
                           )}
                         </span>

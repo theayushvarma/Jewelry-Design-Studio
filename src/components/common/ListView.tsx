@@ -75,12 +75,12 @@ const ListView: React.FC = memo(({ onOpen, setActiveData }) => {
 
   useEffect(() => {
     if (
-      !columns.find((item) => item.uid == "net_price") &&
+      !columns.find((item) => item.uid == "priceAUD") &&
       configData?.display_price == 1
     ) {
       columns.splice(columns.length - 1, 0, {
         name: "Price",
-        uid: "net_price",
+        uid: "priceAUD",
       });
     }
   }, [configData?.display_price]);
@@ -97,9 +97,9 @@ const ListView: React.FC = memo(({ onOpen, setActiveData }) => {
             </div>
           );
 
-        case "net_price":
+        case "priceAUD":
           return configData?.display_price == 1 ? (
-            <b>{formatPrice(item?.net_price, item?.currency_symbol)}</b>
+            <b>{formatPrice(item?.priceAUD, item?.currency_symbol)}</b>
           ) : (
             ""
           );

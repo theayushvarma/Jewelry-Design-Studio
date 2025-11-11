@@ -1,122 +1,124 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface ConfigState {
   data: any | null;
   token: string | null;
   loading: boolean;
   error: string | null;
-  filterOptions: Record<string, any>; // Directly from API response
-  defaultFilters: Record<string, any>; // Default values based on response
+  filterOptions: Record<string, any>;
+  defaultFilters: Record<string, any>;
 }
 
+const staticData = {
+  success: true,
+  message: "Parameter",
+  data: {
+    // diamond_type: ["lab"],
+    shape: [
+      "round",
+      "oval",
+      "cushion",
+      "emerald",
+      "princess",
+      "radiant",
+      "pear",
+      "marquise",
+      "asscher",
+      "heart",
+    ],
+    color: [
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "op",
+      "qr",
+      "st",
+      "uv",
+      "wx",
+      "yz",
+    ],
+    clarity: [
+      "fl",
+      "if",
+      "vvs1",
+      "vvs2",
+      "vs1",
+      "vs2",
+      "si1",
+      "si2",
+      "si3",
+      "i1",
+      "i2",
+      "i3",
+    ],
+    fancy_color: [
+      "yellow",
+      "pink",
+      "blue",
+      "red",
+      "brown",
+      "green",
+      "purple",
+      "orange",
+      "violet",
+      "grey",
+      "black",
+      "champange",
+      "other",
+    ],
+    lab: ["gia", "igi", "ags"],
+    cut: ["id", "ex", "vg", "gd", "fr"],
+    polish: ["ex", "vg", "gd", "fr"],
+    symmetry: ["ex", "vg", "gd", "fr"],
+    fluorescence: ["non", "fnt", "med", "slt", "stg", "vst"],
+    eyeclean: [""],
+    country: ["usa", "hong kong", "uk", "israel", "belgium", "india"],
+    currency_type: null,
+    currency_symbol: "€",
+    colorcode: "#A18D77",
+    price: [1, 80000],
+    carat: [0.18, 30],
+    display_price: 1,
+    text1: null,
+    text2: null,
+    text3: null,
+  },
+};
+
 const initialState: ConfigState = {
-  data: null,
-  token: null,
+  data: staticData.data,
+  token: "", // optional placeholder token
   loading: false,
   error: null,
-  filterOptions: {},
-  defaultFilters: {},
+  filterOptions: staticData.data,
+  defaultFilters: {
+    diamond_type: ["natural"],
+    sort_field: "price",
+    sort_order: "asc",
+    shape: [],
+    fancy_color: [],
+  },
 };
 
 const configSlice = createSlice({
   name: "config",
   initialState,
   reducers: {
-    fetchConfigStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
-
-    fetchConfigSuccess(
-      state,
-      action: PayloadAction<{ data: any; token: string }>
-    ) {
-      const { data, token } = action.payload;
-      state.data = data;
-      state.token = token;
-      state.loading = false;
-
-      const allowedKeys = [
-        "diamond_type",
-        "cut",
-        "color",
-        "clarity",
-        "shape",
-        "fluorescence",
-        "polish",
-        "symmetry",
-        "lab",
-        "fancy_color",
-        "carat",
-        "price",
-        "depth",
-        "table",
-        "sort_order",
-        "sort_field",
-      ];
-
-      const filters: Record<string, any> = {};
-      const defaults: Record<string, any> = {};
-
-      allowedKeys.forEach((key) => {
-        const value = data[key];
-
-        // Skip empty or invalid array values
-        if (!Array.isArray(value) || !value.length) return;
-
-        // Always store the original array in filters
-        filters[key] = [...value];
-
-        switch (key) {
-          case "diamond_type":
-            if (value.includes("both")) {
-              filters[key] = ["natural", "labgrown"];
-              defaults[key] = ["natural"];
-            } else {
-              defaults[key] = [value[0]];
-            }
-            break;
-
-          case "sort_order":
-            defaults[key] = "asc";
-            break;
-
-          case "sort_field":
-            defaults[key] = "price";
-            break;
-
-          default:
-            // Set default as the first item for all other filters
-            if (key == "shape" || key == "fancy_color") {
-              defaults[key] = [];
-            } else {
-              defaults[key] = [...value];
-            }
-        }
-      });
-
-      filters.sort_order = "asc";
-      filters.sort_field = "price";
-
-      defaults.sort_order = "asc";
-      defaults.sort_field = "price";
-
-      state.filterOptions = filters;
-      state.defaultFilters = defaults;
-    },
-
-    fetchConfigFailure(state, action: PayloadAction<string>) {
-      state.error = action.payload;
-      state.loading = false;
-      state.data = null;
-      state.token = null;
-      state.filterOptions = {};
-      state.defaultFilters = {};
+    resetConfig(state) {
+      // restore to initial static data
+      return initialState;
     },
   },
 });
 
-export const { fetchConfigStart, fetchConfigSuccess, fetchConfigFailure } =
-  configSlice.actions;
+export const { resetConfig } = configSlice.actions;
 
 export default configSlice.reducer;

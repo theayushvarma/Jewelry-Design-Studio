@@ -8,14 +8,6 @@ const Color = ({ isFancyActive, toggleFancyActive }) => {
       {/* Label + Tooltip */}
       <div className="w-full flex justify-between items-center">
         <LabelTooltip keyName="color" />
-        <Switch
-          className="text-sm font-semibold"
-          size="sm"
-          isSelected={isFancyActive}
-          onValueChange={toggleFancyActive}
-        >
-          Is Fancy?
-        </Switch>
       </div>
 
       {/* Slider */}

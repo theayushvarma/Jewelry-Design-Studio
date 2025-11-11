@@ -14,6 +14,11 @@ export const tooltipData = {
     content:
       "Select the diamond's weight in carats. Higher carat means a larger and heavier diamond.",
   },
+  price: {
+    title: "Price",
+    content:
+      "Select the price range to get results.",
+  },
   color: {
     title: "Color",
     content:
