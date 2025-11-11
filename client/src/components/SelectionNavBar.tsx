@@ -1,5 +1,13 @@
 import { Tabs, Tab } from "@heroui/react";
-import { DiamondIcon, SettingsIcon, KeyRoundIcon, EyeIcon, Trash2 } from "lucide-react";
+import {
+  DiamondIcon,
+  SettingsIcon,
+  KeyRoundIcon,
+  EyeIcon,
+  Trash2,
+  Gem,
+  LoaderCircleIcon,
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDiamondRingSelection } from "@/hooks/useDiamondRingSelection";
 
@@ -8,18 +16,13 @@ export default function SelectionNavBar() {
   const location = useLocation();
 
   // ✅ Hook for managing selection
-  const {
-    diamond,
-    setting,
-    removeDiamondSelection,
-    removeSettingSelection,
-  } = useDiamondRingSelection();
+  const { diamond, setting, removeDiamondSelection, removeSettingSelection,clearAllSelections } =
+    useDiamondRingSelection();
 
   // ✅ Detect active route
-  const activeTab =
-    location.pathname.includes("/settings")
-      ? "setting"
-      : location.pathname.includes("/ring")
+  const activeTab = location.pathname.includes("/settings")
+    ? "setting"
+    : location.pathname.includes("/ring")
       ? "ring"
       : "diamond";
 
@@ -37,13 +40,17 @@ export default function SelectionNavBar() {
   };
 
   // ✅ Handle remove
-  const handleRemove = (key: "diamond" | "setting") => {
+  const handleRemove = (key: "diamond" | "setting" | "both") => {
+    if (key == "both") {
+      clearAllSelections()
+      return;
+    }
     if (key === "diamond") removeDiamondSelection();
     else removeSettingSelection();
   };
 
   return (
-    <div className="flex justify-center w-full bg-white py-4 border-b sticky top-0 z-20">
+    <div className="flex justify-center w-full bg-white p-4 border-b sticky top-0 z-20">
       <div className="w-full sm:w-1/2">
         <Tabs
           selectedKey={activeTab}
@@ -59,7 +66,7 @@ export default function SelectionNavBar() {
             key="diamond"
             title={
               <div className="flex items-center justify-center gap-2">
-                <DiamondIcon size={18} />
+                <Gem size={18} />
                 <span>Diamond</span>
                 {diamond && (
                   <div className="flex items-center gap-1">
@@ -84,7 +91,7 @@ export default function SelectionNavBar() {
             key="setting"
             title={
               <div className="flex items-center justify-center gap-2">
-                <SettingsIcon size={18} />
+                <LoaderCircleIcon size={18} />
                 <span>Setting</span>
                 {setting && (
                   <div className="flex items-center gap-1">
@@ -109,8 +116,22 @@ export default function SelectionNavBar() {
             key="ring"
             title={
               <div className="flex items-center justify-center gap-2">
-                <KeyRoundIcon size={18} />
+                <span>💍</span>
                 <span>Ring</span>
+                {setting && diamond && (
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemove("both");
+                      }}
+                      className="text-red-500 hover:text-red-700"
+                      title="Remove Setting"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                )}
               </div>
             }
           />

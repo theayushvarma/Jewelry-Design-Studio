@@ -1,5 +1,5 @@
-import { Button, Divider, Image, Tooltip, Chip } from "@heroui/react";
-import { useEffect, useState } from "react";
+import { Button, Divider, Tooltip } from "@heroui/react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CopyIcon,
@@ -12,37 +12,42 @@ import {
 import {
   formatPrice,
   getDiamondTitle,
-  getMeasurement,
-  getRatio,
+  hexToHSL,
 } from "@/utils/common";
 import { getFullForm } from "@/utils/data";
 import VideoView from "@/components/common/VideoView";
 import ImageView from "@/components/common/ImageView";
 import { useDiamondRingSelection } from "@/hooks/useDiamondRingSelection";
 import DefaultLayout from "@/layouts/default";
+import { useConfig } from "@/hooks/useConfig";
 
 export default function RingPage() {
   const navigate = useNavigate();
   const {
     diamond,
     setting,
-    clearAllSelections,
-    removeDiamondSelection,
-    removeSettingSelection,
   } = useDiamondRingSelection();
   const [isCopied, setIsCopied] = useState(false);
   const [isVideoActive, setIsVideoActive] = useState(false);
+  const [isSettingVideoActive, setIsSettingVideoActive] = useState(false);
 
-  // 🧭 Redirect logic if data missing
+  const { data: configData } = useConfig();
+
+  // Apply primary color dynamically
   useEffect(() => {
-    if (!diamond) {
-      navigate("/diamonds"); // redirect if diamond missing
-    } else if (!setting) {
-      navigate("/settings"); // redirect if setting missing
+    if (configData?.colorcode) {
+      const hsl = hexToHSL(configData.colorcode);
+      document.documentElement.style.setProperty("--heroui-primary", hsl);
     }
+  }, [configData?.colorcode]);
+
+  // 🧭 Redirect if selection incomplete
+  useEffect(() => {
+    if (!diamond) navigate("/diamonds");
+    else if (!setting) navigate("/settings");
   }, [diamond, setting, navigate]);
 
-  if (!diamond || !setting) return null; // block render while redirecting
+  if (!diamond || !setting) return null;
 
   const copyLink = () => {
     if (diamond?.video) {
@@ -51,6 +56,16 @@ export default function RingPage() {
       setTimeout(() => setIsCopied(false), 2000);
     }
   };
+
+  // 💰 Compute Total (using useMemo for optimization)
+  const totalPrice = useMemo(() => {
+    const diamondPrice = Number(diamond?.priceAUD || diamond?.price || 0);
+    const settingPrice = Number(setting?.price || 0);
+    return diamondPrice + settingPrice;
+  }, [diamond, setting]);
+
+  const currencySymbol =
+    diamond?.currency_symbol || setting?.currency_symbol || "$";
 
   return (
     <DefaultLayout>
@@ -91,7 +106,7 @@ export default function RingPage() {
           <Divider className="mb-4" />
 
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Left side - Image / Video */}
+            {/* Left: Image/Video */}
             <div className="flex-1 space-y-4">
               <div className="relative w-full aspect-square border rounded-lg overflow-hidden">
                 {isVideoActive ? (
@@ -143,7 +158,7 @@ export default function RingPage() {
               </div>
             </div>
 
-            {/* Right side - Details */}
+            {/* Right: Diamond Details */}
             <div className="flex-1">
               <h3 className="text-lg font-semibold mb-4">
                 Diamond Specifications
@@ -193,18 +208,40 @@ export default function RingPage() {
           <Divider className="mb-4" />
 
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Left: Image */}
             <div className="flex-1">
               <div className="w-full aspect-square border rounded-lg overflow-hidden">
-                <Image
-                  src={setting?.image || "/placeholder-setting.jpg"}
-                  alt={setting?.title || "Setting"}
-                  className="object-cover w-full h-full"
-                />
+                {isSettingVideoActive ? (
+                  <VideoView url={setting?.video} />
+                ) : (
+                  <ImageView data={setting} />
+                )}
+              </div>
+              <div className="flex justify-center mt-4 gap-3">
+                <Button
+                  size="sm"
+                  variant="solid"
+                  color={!isSettingVideoActive ? "primary" : "default"}
+                  onClick={() => setIsSettingVideoActive(false)}
+                  startContent={<ImageIcon size={16} />}
+                >
+                  Image
+                </Button>
+
+                {setting?.video && (
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    color={isSettingVideoActive ? "primary" : "default"}
+                    onClick={() => setIsSettingVideoActive(true)}
+                    startContent={<VideoIcon size={16} />}
+                  >
+                    Video
+                  </Button>
+                )}
               </div>
             </div>
 
-            {/* Right: Details */}
+            {/* Right: Setting Details */}
             <div className="flex-1">
               <h3 className="text-lg font-semibold mb-4">
                 Setting Specifications
@@ -236,7 +273,18 @@ export default function RingPage() {
         <p className="text-lg">
           Your custom ring includes the selected diamond and setting.
         </p>
-        <Button color="primary" size="lg">
+
+        {/* 💰 Total Price Section */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
+          <div className="text-xl font-semibold text-gray-700">
+            Total Price:
+          </div>
+          <div className="text-2xl font-bold text-primary">
+            {formatPrice(totalPrice, currencySymbol)}
+          </div>
+        </div>
+
+        <Button color="primary" size="lg" className="mt-4">
           Proceed to Checkout
         </Button>
       </div>

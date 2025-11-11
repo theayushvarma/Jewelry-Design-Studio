@@ -13,11 +13,11 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
   const { items } = useRecentlyViewed();
 
   return (
-    <div className="flex border-b border-divider w-full justify-between items-center">
+    <div className="flex mb-3 pb-2 md:pb-0 gap-3 border-b flex-wrap border-divider w-full justify-between items-center">
       <Tabs
         aria-label="Options"
         classNames={{
-          tabList: "gap-6 w-full relative rounded-none p-0 ",
+          tabList: "md:gap-6 gap-1 w-full relative  rounded-none p-0 ",
           cursor: "w-full bg-primary",
           tab: "max-w-fit px-0 h-12",
           tabContent: "group-data-[selected=true]:text-primary",
@@ -45,7 +45,7 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
             <div className="flex items-center space-x-2">
               <span>Recently View</span>
               <Chip size="sm" variant="faded">
-                {items?.length  || 0}
+                {items?.length || 0}
               </Chip>
             </div>
           }

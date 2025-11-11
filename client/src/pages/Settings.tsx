@@ -109,11 +109,8 @@ export default function SettingPage() {
             ""
           )}*/}
         </div>
-        {viewType == "grid" ? (
-          <SettingGridView setActiveData={setActiveData} onOpen={onOpen} />
-        ) : (
-          <SettingListView setActiveData={setActiveData} onOpen={onOpen} />
-        )}
+        <SettingGridView setActiveData={setActiveData} onOpen={onOpen} />
+
         {hasMore ? (
           <div className="col-span-full flex justify-center items-center">
             <Button
