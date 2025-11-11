@@ -4,12 +4,14 @@ import { Loader } from "lucide-react";
 
 import DiamondPage from "@/pages/Diamonds";
 import ErrorPage from "@/pages/error";
+import SettingPage from "./pages/Settings";
+import RingPage from "./pages/Rings";
 
 function App() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsMounted(true), 300); 
+    const timer = setTimeout(() => setIsMounted(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -25,6 +27,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/diamonds" replace />} />
       <Route path="/diamonds" element={<DiamondPage />} />
+      <Route path="/settings" element={<SettingPage />} />
+      <Route path="/ring" element={<RingPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

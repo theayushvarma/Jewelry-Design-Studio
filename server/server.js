@@ -13,6 +13,10 @@ const getDiamonds = () => {
   const data = fs.readFileSync("db.json", "utf8");
   return JSON.parse(data).diamonds;
 };
+const getSettings = () => {
+  const data = fs.readFileSync("db.json", "utf8");
+  return JSON.parse(data).settings;
+};
 
 app.post("/api/diamonds", (req, res) => {
   const { page = 1, limit = 10, filters = {}, id } = req.body;
@@ -72,12 +76,10 @@ app.post("/api/diamonds", (req, res) => {
 
   // ✅ 2. Sorting (inside filters)
   if (sort_field) {
-    
     data = data.sort((a, b) => {
-      
       const aVal = a[sort_field];
       const bVal = b[sort_field];
-      
+
       if (typeof aVal === "number" && typeof bVal === "number") {
         return sort_order === "asc" ? aVal - bVal : bVal - aVal;
       }
@@ -86,6 +88,23 @@ app.post("/api/diamonds", (req, res) => {
         : String(bVal).localeCompare(String(aVal));
     });
   }
+
+  // ✅ 3. Pagination
+  const total = data.length;
+  const start = (page - 1) * limit;
+  const paginated = data.slice(start, start + Number(limit));
+
+  res.json({
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    data: paginated,
+  });
+});
+
+app.post("/api/settings", (req, res) => {
+  const { page = 1, limit = 10, filters = {}, id } = req.body;
+  let data = getSettings();
 
   // ✅ 3. Pagination
   const total = data.length;

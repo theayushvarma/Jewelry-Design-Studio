@@ -1,0 +1,66 @@
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import {
+  selectDiamond,
+  removeDiamond,
+  selectSetting,
+  removeSetting,
+  loadSelections,
+  clearSelections,
+} from "@/store/slices/diamondRingSelectionSlice";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+export const useDiamondRingSelection = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { diamond, setting } = useSelector(
+    (state: RootState) => state.diamondRingSelection
+  );
+
+  // 🪄 Diamond actions
+  const addDiamond = (data: any) => {
+    dispatch(selectDiamond(data));
+    if (!!setting && Object.keys(setting)?.length) {
+      navigate("/ring");
+    } else {
+      navigate("/settings");
+    }
+  };
+
+  const removeDiamondSelection = () => {
+    navigate("/diamonds");
+    dispatch(removeDiamond());
+  };
+
+  // 💍 Setting actions
+  const addSetting = (data: any) => {
+    dispatch(selectSetting(data));
+
+    if (!!diamond && Object.keys(diamond)?.length) {
+      navigate("/ring");
+    } else {
+      navigate("/diamonds");
+    }
+  };
+  const removeSettingSelection = () => {
+    dispatch(removeSetting());
+    navigate("/settings");
+  };
+
+  // 🧹 Clear all selections
+  const clearAllSelections = () => {
+    dispatch(clearSelections());
+    navigate("/diamonds");
+  };
+
+  return {
+    diamond,
+    setting,
+    addDiamond,
+    removeDiamondSelection,
+    addSetting,
+    removeSettingSelection,
+    clearAllSelections,
+  };
+};

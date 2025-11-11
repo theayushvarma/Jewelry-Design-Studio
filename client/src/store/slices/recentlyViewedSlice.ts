@@ -26,7 +26,7 @@ const recentlyViewedSlice = createSlice({
 
       // 🧹 Remove any invalid/empty id entries first
       state.items = state.items.filter(
-        (item) => item?.id && item?.certificate_no
+        (item) => !!item?.id
       );
 
       // 🔍 Check for existing entry

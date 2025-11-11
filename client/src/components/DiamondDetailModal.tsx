@@ -38,6 +38,7 @@ import { useConfig } from "@/hooks/useConfig";
 import { getFullForm } from "@/utils/data";
 import AddToCompareButton from "./AddToCompareButton";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useDiamondRingSelection } from "@/hooks/useDiamondRingSelection";
 
 export default function DiamondDetailModal({
   isOpen,
@@ -46,7 +47,7 @@ export default function DiamondDetailModal({
 }) {
   const [isCopied, setIsCopied] = useState(false);
   const [isVideoActive, setIsVideoActive] = useState(false);
-
+  const { addDiamond } = useDiamondRingSelection();
   const { data: configData } = useConfig();
 
   useEffect(() => {
@@ -97,7 +98,7 @@ export default function DiamondDetailModal({
                     </Chip>
                   </div> */}
                   <p className="text-sm  mt-2">
-                    SKU: {activeData?.sku} | Certificate: {activeData?.lab}{" "}
+                    SKU: {activeData?.id} | Certificate: {activeData?.lab}{" "}
                     {activeData?.certificate_no}
                   </p>
                   {/* <PriceDisplay data={activeData} /> */}
@@ -291,13 +292,13 @@ export default function DiamondDetailModal({
                 </Button> */}
                 <AskQuestionModal data={activeData} />
 
-                <AskQuestionModal
-                  data={activeData}
-                  buttonText="Add to Cart"
-                  variant="solid"
+                <Button
                   color="primary"
-                  icon={<ShoppingCart size={16} />}
-                />
+                  variant="solid"
+                  onPress={() => addDiamond(activeData)}
+                >
+                  Choose this diamond
+                </Button>
               </ModalFooter>
             </>
           </main>
