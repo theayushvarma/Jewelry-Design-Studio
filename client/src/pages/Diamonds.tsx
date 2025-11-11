@@ -20,10 +20,14 @@ import GlobalToast from "@/hooks/useGlobalToast";
 import { ToastProvider } from "@heroui/react";
 import useGlobalToast from "@/hooks/useGlobalToast";
 import ResultViewMode from "@/components/filters/ResultViewMode";
+import CompareGridView from "@/components/common/CompareGridView";
+import RecentViewGridView from "@/components/common/RecentViewGridView";
+import CompareListView from "@/components/common/CompareListView";
+import RecentViewListView from "@/components/common/RecentViewListView";
 
 export default function DiamondPage() {
   const [activeData, setActiveData] = useState({});
-  const [activeMode,setActiveMode] = useState("diamonds");
+  const [activeMode, setActiveMode] = useState("diamonds");
   const { viewType, isFilterOpen, filters } = useDiamondSearchFilter();
   const { isOpen, onClose, onOpen, onOpenChange } = useModal();
   const {
@@ -62,8 +66,6 @@ export default function DiamondPage() {
 
   // Fetch on filter change
   useEffect(() => {
-    console.log(basePayload);
-    
     fetchDiamonds({ ...basePayload, page: 1 });
   }, [basePayload]);
 
@@ -103,7 +105,7 @@ export default function DiamondPage() {
         <ResultViewMode activeMode={activeMode} setActiveMode={setActiveMode} />
         <AppliedFilters />
         <div className="mb-3 md:text-medium text-xs">
-        {/*   {loading ? (
+          {/*   {loading ? (
             <b className="text-primary">Searching...</b>
           ) : data?.length ? (
             <>
@@ -121,13 +123,23 @@ export default function DiamondPage() {
           ) : (
             ""
           )}*/}
-        </div> 
+        </div>
         {viewType == "grid" ? (
-          <GridView setActiveData={setActiveData} onOpen={onOpen} />
+          activeMode == "compare" ? (
+            <CompareGridView setActiveData={setActiveData} onOpen={onOpen} />
+          ) : activeMode == "recentlyView" ? (
+            <RecentViewGridView setActiveData={setActiveData} onOpen={onOpen} />
+          ) : (
+            <GridView setActiveData={setActiveData} onOpen={onOpen} />
+          )
+        ) : activeMode == "compare" ? (
+          <CompareListView setActiveData={setActiveData} onOpen={onOpen} />
+        ) : activeMode == "recentlyView" ? (
+          <RecentViewListView setActiveData={setActiveData} onOpen={onOpen} />
         ) : (
           <ListView setActiveData={setActiveData} onOpen={onOpen} />
         )}
-        {hasMore ? (
+        {hasMore && activeMode == "diamonds" ? (
           <div className="col-span-full flex justify-center items-center">
             <Button
               isLoading={loadingMore}

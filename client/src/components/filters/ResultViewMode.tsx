@@ -1,14 +1,16 @@
 import { useDiamondSearchApi } from "@/hooks/useDiamondSearchApi";
 import { useDiamondSearchFilter } from "@/hooks/useDiamondSearchFilter";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { RootState } from "@/store";
 import { Tabs, Tab, Chip, Switch } from "@heroui/react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ResultViewMode = ({ activeMode, setActiveMode }) => {
   const { total } = useDiamondSearchApi();
   const { filters, toggleQuickShip } = useDiamondSearchFilter();
-  useEffect(() => {
-    console.log(filters?.quickShip);
-  }, [filters]);
+  const compareList = useSelector((state: RootState) => state.compare.items);
+  const { items } = useRecentlyViewed();
 
   return (
     <div className="flex border-b border-divider w-full justify-between items-center">
@@ -43,7 +45,7 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
             <div className="flex items-center space-x-2">
               <span>Recently View</span>
               <Chip size="sm" variant="faded">
-                3
+                {items?.length  || 0}
               </Chip>
             </div>
           }
@@ -55,7 +57,7 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
             <div className="flex items-center space-x-2">
               <span>Compare</span>
               <Chip size="sm" variant="faded">
-                1
+                {compareList?.length || 0}
               </Chip>
             </div>
           }

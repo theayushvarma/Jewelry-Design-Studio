@@ -5,6 +5,7 @@ import configSlice from "./slices/configSlice";
 import diamondInquirySlice from "./slices/diamondInquirySlice";
 import shareOnEmailSlice from "./slices/shareOnEmailSlice";
 import compareReducer  from "./slices/compareSlice";
+import recentlyViewedReducer  from "./slices/recentlyViewedSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     diamondInquiry: diamondInquirySlice,
     shareOnEmail: shareOnEmailSlice,
     compare: compareReducer ,
+    recentlyViewed: recentlyViewedReducer ,
   },
 });
 

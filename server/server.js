@@ -72,16 +72,11 @@ app.post("/api/diamonds", (req, res) => {
 
   // ✅ 2. Sorting (inside filters)
   if (sort_field) {
-    console.log(sort_field);
     
     data = data.sort((a, b) => {
-      console.log(a);
-      console.log(b);
       
       const aVal = a[sort_field];
       const bVal = b[sort_field];
-      console.log(aVal);
-      console.log(bVal);
       
       if (typeof aVal === "number" && typeof bVal === "number") {
         return sort_order === "asc" ? aVal - bVal : bVal - aVal;

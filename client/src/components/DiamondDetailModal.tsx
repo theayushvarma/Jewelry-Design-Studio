@@ -37,6 +37,7 @@ import {
 import { useConfig } from "@/hooks/useConfig";
 import { getFullForm } from "@/utils/data";
 import AddToCompareButton from "./AddToCompareButton";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 
 export default function DiamondDetailModal({
   isOpen,
@@ -50,6 +51,12 @@ export default function DiamondDetailModal({
 
   useEffect(() => {
     setIsVideoActive(false);
+  }, [activeData]);
+
+  const { addItem } = useRecentlyViewed();
+
+  useEffect(() => {
+    addItem(activeData);
   }, [activeData]);
 
   const copyLink = () => {
