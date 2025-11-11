@@ -14,10 +14,10 @@ export const tooltipData = {
     content:
       "Select the diamond's weight in carats. Higher carat means a larger and heavier diamond.",
   },
-  price: {
+  priceAUD: {
     title: "Price",
     content:
-      "Select the price range to get results.",
+      "Select the priceAUD range to get results.",
   },
   color: {
     title: "Color",
@@ -100,7 +100,7 @@ export const getFilterLabel = (key: string): string => {
     lab: "Lab",
     fancy_color: "Fancy Color",
     carat: "Carat",
-    price: "Price",
+    priceAUD: "Price",
     table: "Table",
     depth: "Depth",
     sortby: "Sort By",
@@ -170,6 +170,7 @@ export const getFilterLabel = (key: string): string => {
     gia: "GIA",
     agl: "AGL",
     igi: "IGI",
+    ags: "AGS",
     hrd: "HRD",
     egl: "EGL",
     non: "NON",

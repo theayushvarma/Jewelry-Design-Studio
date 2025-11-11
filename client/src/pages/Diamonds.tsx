@@ -19,9 +19,11 @@ import BackToFilter from "@/components/common/BackToFilter";
 import GlobalToast from "@/hooks/useGlobalToast";
 import { ToastProvider } from "@heroui/react";
 import useGlobalToast from "@/hooks/useGlobalToast";
+import ResultViewMode from "@/components/filters/ResultViewMode";
 
 export default function DiamondPage() {
   const [activeData, setActiveData] = useState({});
+  const [activeMode,setActiveMode] = useState("diamonds");
   const { viewType, isFilterOpen, filters } = useDiamondSearchFilter();
   const { isOpen, onClose, onOpen, onOpenChange } = useModal();
   const {
@@ -98,9 +100,10 @@ export default function DiamondPage() {
         <div id="filter-section"></div>
         {isFilterOpen && <Filters />}
         <FilterControls />
+        <ResultViewMode activeMode={activeMode} setActiveMode={setActiveMode} />
         <AppliedFilters />
         <div className="mb-3 md:text-medium text-xs">
-          {loading ? (
+        {/*   {loading ? (
             <b className="text-primary">Searching...</b>
           ) : data?.length ? (
             <>
@@ -117,8 +120,8 @@ export default function DiamondPage() {
             </>
           ) : (
             ""
-          )}
-        </div>
+          )}*/}
+        </div> 
         {viewType == "grid" ? (
           <GridView setActiveData={setActiveData} onOpen={onOpen} />
         ) : (

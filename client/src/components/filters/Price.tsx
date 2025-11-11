@@ -5,10 +5,10 @@ const Price = () => {
   return (
     <div className="w-full space-y-3">
       {/* Label + Tooltip */}
-      <LabelTooltip keyName="price" />
+      <LabelTooltip keyName="priceAUD" />
 
       {/* Slider */}
-      <RangeSlider keyName="price" />
+      <RangeSlider keyName="priceAUD" />
     </div>
   );
 };

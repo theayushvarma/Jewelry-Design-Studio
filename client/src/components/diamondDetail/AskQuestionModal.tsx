@@ -25,7 +25,7 @@ const initialFormData = {
 
 export default function AskQuestionModal({
   data,
-  buttonText = "Ask a Question",
+  buttonText = "Request Quote",
   icon = <MailQuestionMark size={16} />,
   variant = "flat",
   color = "default",

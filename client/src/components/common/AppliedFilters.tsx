@@ -19,7 +19,7 @@ export default function AppliedFilters() {
   }
 
   return (
-    <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-3 mb-3">
+    <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-3 my-3">
       {/* Label Tooltip */}
       <div className="flex-shrink-0">
         <LabelTooltip keyName="appliedFilter" />

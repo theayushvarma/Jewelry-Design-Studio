@@ -15,10 +15,10 @@ const getDiamonds = () => {
 };
 
 app.post("/api/diamonds", (req, res) => {
-  const { page = 1, limit = 10, sort = {}, filters = {}, id } = req.body;
+  const { page = 1, limit = 10, filters = {}, id } = req.body;
   let data = getDiamonds();
 
-  // ✅ 0. If "id" is present, ignore filters and return the matching diamond
+  // ✅ 0. If "id" is present, ignore filters and return that diamond
   if (id) {
     const diamond = data.find((d) => String(d.id) === String(id));
     if (!diamond) {
@@ -32,11 +32,14 @@ app.post("/api/diamonds", (req, res) => {
     });
   }
 
-  // ✅ 1. Apply filters only if id is not provided
-  Object.entries(filters).forEach(([key, value]) => {
+  // ✅ Extract sorting values if present
+  const { sort_field, sort_order, ...activeFilters } = filters;
+
+  // ✅ 1. Apply filters (excluding sort keys)
+  Object.entries(activeFilters).forEach(([key, value]) => {
     if (!value) return;
 
-    // handle range filters like "carat": "6.38-29.98"
+    // Handle range filters like "carat": "6.38-29.98"
     if (typeof value === "string" && value.includes("-")) {
       const [min, max] = value.split("-").map((v) => parseFloat(v));
       if (!isNaN(min) && !isNaN(max)) {
@@ -47,7 +50,7 @@ app.post("/api/diamonds", (req, res) => {
       return;
     }
 
-    // convert comma-separated string to array
+    // Convert comma-separated strings to array
     let filterValues = [];
     if (Array.isArray(value)) {
       filterValues = value;
@@ -57,7 +60,7 @@ app.post("/api/diamonds", (req, res) => {
       filterValues = [String(value).toLowerCase()];
     }
 
-    // boolean filter (e.g., quickShip: true)
+    // Boolean filters
     if (typeof value === "boolean") {
       data = data.filter((item) => Boolean(item[key]) === value);
     } else if (filterValues.length > 0) {
@@ -67,16 +70,23 @@ app.post("/api/diamonds", (req, res) => {
     }
   });
 
-  // ✅ 2. Sorting
-  if (sort.field) {
-    const { field, order = "asc" } = sort;
+  // ✅ 2. Sorting (inside filters)
+  if (sort_field) {
+    console.log(sort_field);
+    
     data = data.sort((a, b) => {
-      const aVal = a[field];
-      const bVal = b[field];
+      console.log(a);
+      console.log(b);
+      
+      const aVal = a[sort_field];
+      const bVal = b[sort_field];
+      console.log(aVal);
+      console.log(bVal);
+      
       if (typeof aVal === "number" && typeof bVal === "number") {
-        return order === "asc" ? aVal - bVal : bVal - aVal;
+        return sort_order === "asc" ? aVal - bVal : bVal - aVal;
       }
-      return order === "asc"
+      return sort_order === "asc"
         ? String(aVal).localeCompare(String(bVal))
         : String(bVal).localeCompare(String(aVal));
     });

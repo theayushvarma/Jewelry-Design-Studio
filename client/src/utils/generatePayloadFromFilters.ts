@@ -85,7 +85,7 @@ export function generatePayloadFromFilters(filters, token) {
     "fluorescence",
     "fancy_color",
     "lab",
-    "price",
+    "priceAUD",
     "shape",
     "table",
     "depth",

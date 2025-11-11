@@ -21,6 +21,7 @@ import {
   Gem,
   CopyCheck,
   Video,
+  ShoppingCart,
 } from "lucide-react";
 import SharePopup from "./diamondDetail/SharePopup";
 import ShareOnEmailModal from "./diamondDetail/ShareOnEmailModal";
@@ -35,6 +36,7 @@ import {
 } from "@/utils/common";
 import { useConfig } from "@/hooks/useConfig";
 import { getFullForm } from "@/utils/data";
+import AddToCompareButton from "./AddToCompareButton";
 
 export default function DiamondDetailModal({
   isOpen,
@@ -111,7 +113,9 @@ export default function DiamondDetailModal({
                       </Button>
                     </Tooltip>
                   )}
-                  <SharePopup data={activeData} />
+                  <AddToCompareButton diamond={activeData} />
+
+                  {/* <SharePopup data={activeData} /> */}
                 </div>
               </ModalHeader>
 
@@ -282,10 +286,10 @@ export default function DiamondDetailModal({
 
                 <AskQuestionModal
                   data={activeData}
-                  buttonText="Choose Diamond"
+                  buttonText="Add to Cart"
                   variant="solid"
                   color="primary"
-                  icon={<Gem size={16} />}
+                  icon={<ShoppingCart size={16} />}
                 />
               </ModalFooter>
             </>

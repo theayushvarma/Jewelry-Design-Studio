@@ -25,8 +25,8 @@ const useAppliedFilters = () => {
   };
 
   const sortByOptions = [
-    { key: "price_asc", label: "Price - Low to High" },
-    { key: "price_desc", label: "Price - High to Low" },
+    { key: "priceAUD_asc", label: "Price - Low to High" },
+    { key: "priceAUD_desc", label: "Price - High to Low" },
     { key: "carat_asc", label: "Carat - Low to High" },
     { key: "carat_desc", label: "Carat - High to Low" },
   ];

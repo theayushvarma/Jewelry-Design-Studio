@@ -162,13 +162,13 @@ export function openExternalLink(
 }
 
 /**
- * Formats a price to standard format, e.g., "$22,067.00".
- * @param {string | number} price - The price to format. Accepts strings or numbers with/without "$" or commas.
- * @returns {string} - The formatted price string.
+ * Formats a priceAUD to standard format, e.g., "$22,067.00".
+ * @param {string | number} priceAUD - The priceAUD to format. Accepts strings or numbers with/without "$" or commas.
+ * @returns {string} - The formatted priceAUD string.
  */
-export function formatPrice(price, currency = "$") {
-  // Convert price to string and remove any non-numeric characters except "."
-  let cleanedPrice = String(price).replace(/[^\d.]/g, "");
+export function formatPrice(priceAUD, currency = "$") {
+  // Convert priceAUD to string and remove any non-numeric characters except "."
+  let cleanedPrice = String(priceAUD).replace(/[^\d.]/g, "");
 
   // Convert to float and ensure we have a valid number
   let numericPrice = parseFloat(cleanedPrice);
@@ -181,12 +181,12 @@ export function formatPrice(price, currency = "$") {
 }
 
 export function formatPriceWithPostFix(
-  price,
+  priceAUD,
   currencySymbol = "$",
   currencyCode = "USD"
 ) {
-  // Convert price to string and remove any non-numeric characters except "."
-  let cleanedPrice = String(price).replace(/[^\d.]/g, "");
+  // Convert priceAUD to string and remove any non-numeric characters except "."
+  let cleanedPrice = String(priceAUD).replace(/[^\d.]/g, "");
 
   // Convert to float and ensure we have a valid number
   let numericPrice = parseFloat(cleanedPrice);

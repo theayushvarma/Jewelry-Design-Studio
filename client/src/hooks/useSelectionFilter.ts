@@ -8,7 +8,7 @@ const useSelection = (key) => {
   const { filters, updateFilters } = useDiamondSearchFilter();
 
   const isRangeKey = useMemo(
-    () => ["carat", "depth", "table", "price"].includes(key),
+    () => ["carat", "depth", "table", "priceAUD"].includes(key),
     [key]
   );
 

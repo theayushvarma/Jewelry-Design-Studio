@@ -3,8 +3,8 @@ import { Select, SelectItem } from "@heroui/react";
 import { useEffect } from "react";
 
 const options = [
-  { key: "price_asc", label: "Price - Low to High" },
-  { key: "price_desc", label: "Price - High to Low" },
+  { key: "priceAUD_asc", label: "Price - Low to High" },
+  { key: "priceAUD_desc", label: "Price - High to Low" },
   { key: "carat_asc", label: "Carat - Low to High" },
   { key: "carat_desc", label: "Carat - High to Low" },
 ];
@@ -19,7 +19,7 @@ export default function SortBy() {
     const [sortKey] = Array.from(keys); // 'price_asc'
     const [by, order] = sortKey.split("_");
 
-    sort_field.handleDataClick(by); // sets sort_field = "price"
+    sort_field.handleDataClick(by); // sets sort_field = "priceAUD"
     sort_order.handleDataClick(order); // sets sort_order = "asc"
   };
 

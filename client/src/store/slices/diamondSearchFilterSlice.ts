@@ -7,6 +7,7 @@ export interface DiamondSearchFilterState {
   isAdvanceFilterOpen?: boolean;
   filters?: {
     isFancyActive?: boolean;
+    quickShip?: boolean;
     carat?: number[];
     cut?: string;
     color?: string;
@@ -23,7 +24,7 @@ export interface DiamondSearchFilterState {
     sort_order?: "asc" | "desc";
     diamond_type?: "natural" | "lab_grown";
     token?: string;
-    price?: number[];
+    priceAUD?: number[];
   };
 }
 
@@ -43,6 +44,9 @@ export const diamondSearchFilterSlice = createSlice({
     },
     setIsFancyActive: (state, action) => {
       state.filters.isFancyActive = action.payload;
+    },
+    setIsQuickShip: (state, action) => {
+      state.filters.quickShip = action.payload;
     },
     toggleFilterOpen: (state) => {
       state.isFilterOpen = !state.isFilterOpen;
@@ -81,6 +85,7 @@ export const diamondSearchFilterSlice = createSlice({
 export const {
   updateView,
   setIsFancyActive,
+  setIsQuickShip,
   toggleFilterOpen,
   toggleAdvanceFilterOpen,
   setFilters,

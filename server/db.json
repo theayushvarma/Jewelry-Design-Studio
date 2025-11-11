@@ -1,24 +1,6 @@
 {
   "diamonds": [
     {
-      "id": "635495811",
-      "shape": "Emerald",
-      "carat": "1.53",
-      "color": "H",
-      "clarity": "VVS2",
-      "cut": "Na",
-      "quickShip": false,
-      "priceAUD": "974",
-      "lab": "IGI",
-      "reportNumber": "635495811",
-      "stockNumber": "746506922",
-      "image": "https://magnifier.s3.us-west-1.amazonaws.com/635495811.jpg",
-      "video": "https://mglgd.com/Media/viewer3/Vision360.html?d=L5253",
-      "type": "lab",
-      "currencyCode": "AUD",
-      "currencySymbol": "$"
-    },
-    {
       "id": "635481968",
       "shape": "Emerald",
       "carat": "1.56",

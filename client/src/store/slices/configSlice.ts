@@ -84,7 +84,7 @@ const staticData = {
     currency_type: null,
     currency_symbol: "€",
     colorcode: "#A18D77",
-    price: [1, 80000],
+    priceAUD: [1, 80000],
     carat: [0.18, 30],
     display_price: 1,
     text1: null,
@@ -101,7 +101,7 @@ const initialState: ConfigState = {
   filterOptions: staticData.data,
   defaultFilters: {
     diamond_type: ["natural"],
-    sort_field: "price",
+    sort_field: "priceAUD",
     sort_order: "asc",
     shape: [],
     fancy_color: [],

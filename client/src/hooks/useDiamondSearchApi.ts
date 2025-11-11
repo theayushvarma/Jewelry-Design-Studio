@@ -23,7 +23,7 @@ export const useDiamondSearchApi = () => {
       const {
         page = 1,
         limit = 10,
-        sortBy = "price",
+        sortBy = "priceAUD",
         order = "asc",
         search = "",
         ...otherFilters

@@ -3,6 +3,7 @@ import { RootState } from "@/store"; // Adjust the path to your redux's root sta
 import {
   updateView,
   setIsFancyActive,
+  setIsQuickShip,
   toggleFilterOpen,
   toggleAdvanceFilterOpen,
   setFilters,
@@ -18,6 +19,9 @@ export const useDiamondSearchFilter = () => {
   );
   const isFancyActive = useSelector(
     (state: RootState) => state.diamondSearchFilter.filters.isFancyActive
+  );
+  const isQuickShip = useSelector(
+    (state: RootState) => state.diamondSearchFilter.filters.quickShip
   );
   const isFilterOpen = useSelector(
     (state: RootState) => state.diamondSearchFilter.isFilterOpen
@@ -37,6 +41,7 @@ export const useDiamondSearchFilter = () => {
   );
 
   const toggleFancyActive = (type) => dispatch(setIsFancyActive(type));
+  const toggleQuickShip = () => dispatch(setIsQuickShip(!isQuickShip));
   const updateViewType = (type) => dispatch(updateView(type));
   const toggleFilter = () => dispatch(toggleFilterOpen());
   const toggleAdvanceFilter = () => dispatch(toggleAdvanceFilterOpen());
@@ -54,6 +59,7 @@ export const useDiamondSearchFilter = () => {
     filters,
     updateViewType,
     toggleFancyActive,
+    toggleQuickShip,
     toggleFilter,
     toggleAdvanceFilter,
     updateFilters,

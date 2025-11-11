@@ -54,7 +54,7 @@ const Filters = () => {
         {filterOptions["clarity"]?.length && <Clarity />}
         {filters?.shape?.includes("round") && filterOptions["cut"]?.length && <Cut />}
         {filterOptions["lab"]?.length && <Lab />}
-        {filterOptions["price"]?.length && <Price />}
+        {filterOptions["priceAUD"]?.length && <Price />}
       </CardBody>
     </Card>
   );
