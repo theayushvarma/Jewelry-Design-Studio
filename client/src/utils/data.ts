@@ -175,7 +175,7 @@ export const getFilterLabel = (key: string): string => {
     strong: "Strong",
     very_strong: "Very Strong",
     none: "None",
-    id: "Certifucate",
+    id: "Certificate",
     gia: "GIA",
     agl: "AGL",
     igi: "IGI",
