@@ -25,7 +25,7 @@ export const useDiamondSearchApi = () => {
         limit = 10,
         sortBy = "priceAUD",
         order = "asc",
-        search = "",
+        id = "",
         ...otherFilters
       } = filters;
 
@@ -35,7 +35,7 @@ export const useDiamondSearchApi = () => {
         limit,
         sort: { field: sortBy, order },
         filters: otherFilters, // contains color, shape, clarity, etc.
-        search,
+        id,
       };
 
       // API call — POST request (matches your Express API)

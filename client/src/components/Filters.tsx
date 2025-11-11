@@ -17,6 +17,7 @@ import { useDiamondSearchFilter } from "@/hooks/useDiamondSearchFilter";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useConfig } from "@/hooks/useConfig";
 import Price from "./filters/Price";
+import SearchByReportNumber from "./filters/SearchByReportNumber";
 
 const CameraIcon = ({ isAdvanceFilterOpen }) => {
   return isAdvanceFilterOpen ? <ChevronUp /> : <ChevronDown />;
@@ -55,6 +56,7 @@ const Filters = () => {
         {filters?.shape?.includes("round") && filterOptions["cut"]?.length && <Cut />}
         {filterOptions["lab"]?.length && <Lab />}
         {filterOptions["priceAUD"]?.length && <Price />}
+        <SearchByReportNumber />
       </CardBody>
     </Card>
   );

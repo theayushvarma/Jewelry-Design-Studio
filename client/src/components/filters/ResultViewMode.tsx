@@ -3,21 +3,25 @@ import { useDiamondSearchFilter } from "@/hooks/useDiamondSearchFilter";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { RootState } from "@/store";
 import { Tabs, Tab, Chip, Switch } from "@heroui/react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const ResultViewMode = ({ activeMode, setActiveMode }) => {
   const { total } = useDiamondSearchApi();
-  const { filters, toggleQuickShip } = useDiamondSearchFilter();
+  const { filters, updateFilters } = useDiamondSearchFilter();
   const compareList = useSelector((state: RootState) => state.compare.items);
   const { items } = useRecentlyViewed();
+
+  // ✅ Toggle Quick Ship value
+  const handleQuickShipToggle = (isSelected: boolean) => {
+    updateFilters({ quickShip: isSelected });
+  };
 
   return (
     <div className="flex mb-3 pb-2 md:pb-0 gap-3 border-b flex-wrap border-divider w-full justify-between items-center">
       <Tabs
         aria-label="Options"
         classNames={{
-          tabList: "md:gap-6 gap-1 w-full relative  rounded-none p-0 ",
+          tabList: "md:gap-6 gap-1 w-full relative rounded-none p-0",
           cursor: "w-full bg-primary",
           tab: "max-w-fit px-0 h-12",
           tabContent: "group-data-[selected=true]:text-primary",
@@ -27,10 +31,12 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
         variant="underlined"
       >
         <Tab
-          onClick={() => setActiveMode("diamonds")}
           key="diamonds"
           title={
-            <div className="flex items-center space-x-2">
+            <div
+              onClick={() => setActiveMode("diamonds")}
+              className="flex items-center space-x-2 cursor-pointer"
+            >
               <span>Diamonds</span>
               <Chip size="sm" variant="faded">
                 {total || 0}
@@ -39,10 +45,12 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
           }
         />
         <Tab
-          onClick={() => setActiveMode("recentlyView")}
           key="recentlyView"
           title={
-            <div className="flex items-center space-x-2">
+            <div
+              onClick={() => setActiveMode("recentlyView")}
+              className="flex items-center space-x-2 cursor-pointer"
+            >
               <span>Recently View</span>
               <Chip size="sm" variant="faded">
                 {items?.length || 0}
@@ -51,10 +59,12 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
           }
         />
         <Tab
-          onClick={() => setActiveMode("compare")}
           key="compare"
           title={
-            <div className="flex items-center space-x-2">
+            <div
+              onClick={() => setActiveMode("compare")}
+              className="flex items-center space-x-2 cursor-pointer"
+            >
               <span>Compare</span>
               <Chip size="sm" variant="faded">
                 {compareList?.length || 0}
@@ -63,10 +73,13 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
           }
         />
       </Tabs>
+
+      {/* ✅ Working Quick Ship Toggle */}
       <Switch
-        isSelected={filters?.quickShip}
-        onClick={toggleQuickShip}
+        isSelected={!!filters?.quickShip}
+        onValueChange={handleQuickShipToggle}
         size="sm"
+        color="primary"
       >
         Quick Ship
       </Switch>

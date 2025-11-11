@@ -10,6 +10,7 @@ export interface DiamondSearchFilterState {
     quickShip?: boolean;
     carat?: number[];
     cut?: string;
+    id?: string;
     color?: string;
     fancy_color?: string;
     clarity?: string;

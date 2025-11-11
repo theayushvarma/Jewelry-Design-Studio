@@ -4,6 +4,14 @@ export const tooltipData = {
     content:
       "Choose the diamond's shape. Common options include Round, Princess, Oval, and more.",
   },
+  id: {
+    title: "Report Number",
+    content:"Enter Report Number to search.",
+  },
+  quickShip: {
+    title: "Quick Ship",
+    content:"This is quick ship",
+  },
   shape: {
     title: "Shape",
     content:
@@ -167,6 +175,7 @@ export const getFilterLabel = (key: string): string => {
     strong: "Strong",
     very_strong: "Very Strong",
     none: "None",
+    id: "Certifucate",
     gia: "GIA",
     agl: "AGL",
     igi: "IGI",

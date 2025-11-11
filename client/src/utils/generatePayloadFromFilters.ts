@@ -60,6 +60,7 @@ const mapValues = {
 };
 
 export function generatePayloadFromFilters(filters, token) {
+  
   const payload = { token };
 
   const convert = (list = [], key = "") =>
@@ -74,6 +75,10 @@ export function generatePayloadFromFilters(filters, token) {
   if (filters.sort_field) {
     payload.sort_field = filters.sort_field;
   }
+  if (filters.id) {
+    payload.id = filters.id;
+  }
+
 
   const arrayFields = [
     "clarity",
@@ -89,10 +94,16 @@ export function generatePayloadFromFilters(filters, token) {
     "shape",
     "table",
     "depth",
+    "quickShip",
   ];
 
   arrayFields.forEach((field) => {
     const value = filters[field];
+    if (field == "quickShip") {
+      payload.quickShip = value
+      console.log(payload);
+      
+    }
     if (!Array.isArray(value) || value.length === 0) return;
 
     const isNumericRange =
@@ -115,6 +126,8 @@ export function generatePayloadFromFilters(filters, token) {
     } else {
       payload[field] = converted;
     }
+
+    payload.quickShip = filters?.quickShip
   });
 
   return payload;
