@@ -57,7 +57,7 @@ export default function ImageView({
           src={src}
           alt={alt || "Diamond Image"}
           loading="lazy"
-          className={`transition-all duration-500 ease-in-out ${
+          className={`transition-all object-cover duration-500 ease-in-out ${
             isLoaded ? "opacity-100 blur-0" : "opacity-0 blur-md scale-105"
           } ${className}`}
         />

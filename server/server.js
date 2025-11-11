@@ -1,0 +1,100 @@
+import express from "express";
+import cors from "cors";
+import fs from "fs";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const PORT = 4000;
+
+// ✅ Load diamonds from db.json
+const getDiamonds = () => {
+  const data = fs.readFileSync("db.json", "utf8");
+  return JSON.parse(data).diamonds;
+};
+
+app.post("/api/diamonds", (req, res) => {
+  const { page = 1, limit = 10, sort = {}, filters = {}, id } = req.body;
+  let data = getDiamonds();
+
+  // ✅ 0. If "id" is present, ignore filters and return the matching diamond
+  if (id) {
+    const diamond = data.find((d) => String(d.id) === String(id));
+    if (!diamond) {
+      return res.status(404).json({ message: "Diamond not found" });
+    }
+    return res.json({
+      total: 1,
+      page: 1,
+      limit: 1,
+      data: [diamond],
+    });
+  }
+
+  // ✅ 1. Apply filters only if id is not provided
+  Object.entries(filters).forEach(([key, value]) => {
+    if (!value) return;
+
+    // handle range filters like "carat": "6.38-29.98"
+    if (typeof value === "string" && value.includes("-")) {
+      const [min, max] = value.split("-").map((v) => parseFloat(v));
+      if (!isNaN(min) && !isNaN(max)) {
+        data = data.filter(
+          (item) => Number(item[key]) >= min && Number(item[key]) <= max
+        );
+      }
+      return;
+    }
+
+    // convert comma-separated string to array
+    let filterValues = [];
+    if (Array.isArray(value)) {
+      filterValues = value;
+    } else if (typeof value === "string") {
+      filterValues = value.split(",").map((v) => v.trim().toLowerCase());
+    } else {
+      filterValues = [String(value).toLowerCase()];
+    }
+
+    // boolean filter (e.g., quickShip: true)
+    if (typeof value === "boolean") {
+      data = data.filter((item) => Boolean(item[key]) === value);
+    } else if (filterValues.length > 0) {
+      data = data.filter((item) =>
+        filterValues.includes(String(item[key]).toLowerCase())
+      );
+    }
+  });
+
+  // ✅ 2. Sorting
+  if (sort.field) {
+    const { field, order = "asc" } = sort;
+    data = data.sort((a, b) => {
+      const aVal = a[field];
+      const bVal = b[field];
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return order === "asc" ? aVal - bVal : bVal - aVal;
+      }
+      return order === "asc"
+        ? String(aVal).localeCompare(String(bVal))
+        : String(bVal).localeCompare(String(aVal));
+    });
+  }
+
+  // ✅ 3. Pagination
+  const total = data.length;
+  const start = (page - 1) * limit;
+  const paginated = data.slice(start, start + Number(limit));
+
+  res.json({
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    data: paginated,
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ Diamond Filter API running at http://localhost:${PORT}`);
+});

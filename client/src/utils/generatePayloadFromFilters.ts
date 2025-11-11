@@ -85,6 +85,7 @@ export function generatePayloadFromFilters(filters, token) {
     "fluorescence",
     "fancy_color",
     "lab",
+    "price",
     "shape",
     "table",
     "depth",
@@ -109,6 +110,8 @@ export function generatePayloadFromFilters(filters, token) {
         payload.color = converted;
         delete payload.fancy_color;
       }
+    } if (field === "lab") {
+      payload[field] = converted?.toUpperCase();
     } else {
       payload[field] = converted;
     }

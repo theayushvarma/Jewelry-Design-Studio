@@ -47,7 +47,6 @@ export default function DiamondPage() {
     if (configData?.colorcode) {
       const hsl = hexToHSL(configData.colorcode);
       const root = document.documentElement;
-
       root.style.setProperty("--heroui-primary", hsl); // "200 90% 40%" etc
     }
   }, [configData?.colorcode]);
@@ -61,6 +60,8 @@ export default function DiamondPage() {
 
   // Fetch on filter change
   useEffect(() => {
+    console.log(basePayload);
+    
     fetchDiamonds({ ...basePayload, page: 1 });
   }, [basePayload]);
 
