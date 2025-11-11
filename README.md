@@ -21,13 +21,6 @@
 * [State Management (Redux slices & hooks)](#state-management-redux-slices--hooks)
 * [Testing](#testing)
 
-  * Unit tests (Vitest + React Testing Library)
-  * E2E tests (Cypress example)
-* [Scripts](#scripts)
-* [Troubleshooting & Tips](#troubleshooting--tips)
-* [Contributing](#contributing)
-* [License](#license)
-
 ---
 
 ## Overview
@@ -61,7 +54,6 @@ You can run frontend and backend locally and test the full flow.
 * Testing & Tooling:
 
   * Vitest + React Testing Library (unit)
-  * Cypress (E2E) - optional
   * ESLint, Prettier
   * Vite (dev server & build)
 
