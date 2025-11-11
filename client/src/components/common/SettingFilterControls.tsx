@@ -16,13 +16,11 @@ export default function SettingFilterControls() {
 
   const handleReset = () => {
     resetAppliedFilters();
-    // resetAll();
   };
 
   return (
     <Card className="w-full shadow-sm border border-default mb-3">
       <CardBody className="flex flex-col gap-4 p-2 sm:flex-row sm:items-center sm:justify-between">
-        {/* Left: Result Summary */}
         <div className="text-base font-semibold text-default-900 text-nowrap">
           Search{" "}
           {getFilterLabel(filters?.diamond_type || "")
@@ -31,12 +29,9 @@ export default function SettingFilterControls() {
           Diamonds
         </div>
 
-        {/* Right: Filter Controls */}
         <div className="flex flex-wrap gap-2 justify-start sm:justify-end items-center w-full sm:w-auto">
-          {/* Sort Dropdown */}
           <SortBy />
 
-          {/* Reset Button */}
           <Tooltip content="Reset all filters" placement="top">
             <Button
               size="md"
@@ -49,7 +44,6 @@ export default function SettingFilterControls() {
             </Button>
           </Tooltip>
 
-          {/* Grid/List View Toggle */}
           <ViewType />
         </div>
       </CardBody>

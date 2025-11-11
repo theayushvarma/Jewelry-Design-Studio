@@ -19,7 +19,6 @@ export const useDiamondSearchApi = () => {
       if (isLoadMore) dispatch(fetchMoreStart());
       else dispatch(fetchStart());
 
-      // Default pagination + sorting setup
       const {
         page = 1,
         limit = 10,
@@ -29,19 +28,16 @@ export const useDiamondSearchApi = () => {
         ...otherFilters
       } = filters;
 
-      // Build POST body based on your backend
       const body = {
         page,
         limit,
         sort: { field: sortBy, order },
-        filters: otherFilters, // contains color, shape, clarity, etc.
+        filters: otherFilters, 
         id,
       };
 
-      // API call — POST request (matches your Express API)
       const response = await api.post("/diamonds", body);
 
-      // Extract data safely
       const {
         data = [],
         total = 0,

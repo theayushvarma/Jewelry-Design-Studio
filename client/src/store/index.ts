@@ -9,11 +9,10 @@ import compareReducer from "./slices/compareSlice";
 import recentlyViewedReducer from "./slices/recentlyViewedSlice";
 import diamondRingSelectionReducer from "./slices/diamondRingSelectionSlice";
 
-// --- ✅ Load persisted state from sessionStorage ---
 const loadState = () => {
   try {
     const serializedState = sessionStorage.getItem("reduxState");
-    if (serializedState === null) return undefined; // no previous state
+    if (serializedState === null) return undefined; 
     return JSON.parse(serializedState);
   } catch (err) {
     console.error("Error loading state:", err);
@@ -21,7 +20,6 @@ const loadState = () => {
   }
 };
 
-// --- ✅ Save state to sessionStorage ---
 const saveState = (state: any) => {
   try {
     const serializedState = JSON.stringify(state);
@@ -31,7 +29,6 @@ const saveState = (state: any) => {
   }
 };
 
-// ✅ Load persisted state before creating store
 const persistedState = loadState();
 
 export const store = configureStore({
@@ -46,17 +43,15 @@ export const store = configureStore({
     recentlyViewed: recentlyViewedReducer,
     diamondRingSelection: diamondRingSelectionReducer,
   },
-  preloadedState: persistedState, // 🧠 restore saved state
+  preloadedState: persistedState, 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 });
 
-// ✅ Automatically save the store to sessionStorage on every change
 store.subscribe(() => {
   const state = store.getState();
-  // You can choose to persist only specific slices:
   const stateToPersist = {
     diamondSearchFilter: state.diamondSearchFilter,
     diamondSearchApi: state.diamondSearchApi,

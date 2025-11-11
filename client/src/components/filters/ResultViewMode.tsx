@@ -11,7 +11,6 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
   const compareList = useSelector((state: RootState) => state.compare.items);
   const { items } = useRecentlyViewed();
 
-  // ✅ Toggle Quick Ship value
   const handleQuickShipToggle = (isSelected: boolean) => {
     updateFilters({ quickShip: isSelected });
   };
@@ -74,7 +73,6 @@ const ResultViewMode = ({ activeMode, setActiveMode }) => {
         />
       </Tabs>
 
-      {/* ✅ Working Quick Ship Toggle */}
       <Switch
         isSelected={!!filters?.quickShip}
         onValueChange={handleQuickShipToggle}

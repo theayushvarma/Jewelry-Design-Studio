@@ -1,5 +1,3 @@
-// utility/generatePayloadFromFilters.js
-
 const mapValues = {
   cut: {
     ideal: "id",
@@ -100,9 +98,7 @@ export function generatePayloadFromFilters(filters, token) {
   arrayFields.forEach((field) => {
     const value = filters[field];
     if (field == "quickShip") {
-      payload.quickShip = value
-      console.log(payload);
-      
+      payload.quickShip = value      
     }
     if (!Array.isArray(value) || value.length === 0) return;
 
@@ -112,7 +108,6 @@ export function generatePayloadFromFilters(filters, token) {
       ? `${value[0]}-${value[1]}`
       : convert(value, field);
 
-    // Handle fancy_color and color logic
     if (field === "fancy_color" || field === "color") {
       if (filters?.isFancyActive && field === "fancy_color") {
         payload.fancy_color = converted;

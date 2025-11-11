@@ -3,7 +3,7 @@ import {
   submitDiamondInquiry,
   resetInquiryState,
 } from "@/store/slices/diamondInquirySlice";
-import { RootState } from "@/store"; // update path if needed
+import { RootState } from "@/store"; 
 
 export const useDiamondInquiry = () => {
   const dispatch = useDispatch();

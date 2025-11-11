@@ -1,4 +1,3 @@
-// src/store/slices/compareSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DiamondItem {

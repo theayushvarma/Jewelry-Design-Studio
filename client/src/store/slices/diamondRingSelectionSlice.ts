@@ -26,7 +26,6 @@ const diamondRingSelectionSlice = createSlice({
   name: "selection",
   initialState,
   reducers: {
-    // 🟢 Add or update diamond
     selectDiamond(state, action: PayloadAction<Diamond>) {
       const newDiamond = action.payload;
       if (newDiamond?.id || newDiamond?.certificate_no) {
@@ -38,13 +37,11 @@ const diamondRingSelectionSlice = createSlice({
       }
     },
 
-    // 🔴 Remove diamond
     removeDiamond(state) {
       state.diamond = null;
       localStorage.removeItem("selectedDiamond");
     },
 
-    // 🟢 Add or update setting
     selectSetting(state, action: PayloadAction<Setting>) {
       const newSetting = action.payload;
       if (newSetting?.id) {
@@ -53,13 +50,11 @@ const diamondRingSelectionSlice = createSlice({
       }
     },
 
-    // 🔴 Remove setting
     removeSetting(state) {
       state.setting = null;
       localStorage.removeItem("selectedSetting");
     },
 
-    // 🔁 Load saved state (useful for reload or app init)
     loadSelections(state) {
       const savedDiamond = localStorage.getItem("selectedDiamond");
       const savedSetting = localStorage.getItem("selectedSetting");
@@ -68,7 +63,6 @@ const diamondRingSelectionSlice = createSlice({
       state.setting = savedSetting ? JSON.parse(savedSetting) : null;
     },
 
-    // ⚙️ Clear both
     clearSelections(state) {
       state.diamond = null;
       state.setting = null;

@@ -20,12 +20,10 @@ export default function AppliedFilters() {
 
   return (
     <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-3 my-3">
-      {/* Label Tooltip */}
       <div className="flex-shrink-0">
         <LabelTooltip keyName="appliedFilter" />
       </div>
 
-      {/* Applied Filters List */}
       <ScrollShadow
         orientation="horizontal"
         hideScrollBar
@@ -40,7 +38,7 @@ export default function AppliedFilters() {
                   variant="flat"
                   {...(!notAllowed.includes(key) && {
                     onClose: () => handleRemoveFilter(key),
-                  })} // ✅ Conditionally apply onClose
+                  })} 
                 >
                   {`${tooltipData[key]?.title}: ${!value.toString().split().includes("-") ? value.toString().split(",").map((item) => getFilterLabel(item)) : value}`}
                 </Chip>

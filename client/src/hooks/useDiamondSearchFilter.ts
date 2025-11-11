@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/store"; // Adjust the path to your redux's root state
+import { RootState } from "@/store"; 
 import {
   updateView,
   setIsFancyActive,

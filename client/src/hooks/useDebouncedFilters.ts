@@ -1,4 +1,3 @@
-// hooks/useDebouncedFilters.js
 import { useEffect, useState } from "react";
 
 export default function useDebouncedFilters(filters, delay = 300) {

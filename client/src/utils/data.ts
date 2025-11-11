@@ -197,7 +197,6 @@ export const getFilterLabel = (key: string): string => {
   return labelMap[key] || formatKeyToLabel(key);
 };
 
-// Optional fallback formatter if key not in map
 const formatKeyToLabel = (key: string): string =>
   !!key
     ? key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())

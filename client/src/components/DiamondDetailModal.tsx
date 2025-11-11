@@ -63,7 +63,7 @@ export default function DiamondDetailModal({
   const copyLink = () => {
     navigator.clipboard.writeText(activeData?.video);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    setTimeout(() => setIsCopied(false), 2000); 
   };
 
   return (
@@ -83,25 +83,10 @@ export default function DiamondDetailModal({
                   <h2 className="text-2xl  font-bold">
                     {getDiamondTitle(activeData)}
                   </h2>
-                  {/* <div className="flex flex-wrap gap-2 mt-2">
-                    <Chip color="default" variant="flat" size="sm">
-                      Carat: {activeData?.carat}
-                    </Chip>
-                    <Chip color="default" variant="flat" size="sm">
-                      Color: {activeData?.color}
-                    </Chip>
-                    <Chip color="default" variant="flat" size="sm">
-                      Clarity: {activeData?.clarity}
-                    </Chip>
-                    <Chip color="default" variant="flat" size="sm">
-                      Cut: {activeData?.cut}
-                    </Chip>
-                  </div> */}
                   <p className="text-sm  mt-2">
                     SKU: {activeData?.id} | Certificate: {activeData?.lab}{" "}
                     {activeData?.certificate_no}
                   </p>
-                  {/* <PriceDisplay data={activeData} /> */}
                 </div>
                 <div className="flex gap-2">
                   {activeData?.video && (
@@ -123,14 +108,12 @@ export default function DiamondDetailModal({
                   )}
                   <AddToCompareButton diamond={activeData} />
 
-                  {/* <SharePopup data={activeData} /> */}
                 </div>
               </ModalHeader>
 
               <Divider />
 
               <ModalBody className="flex flex-col lg:flex-row gap-6 mt-6">
-                {/* Left: Image/Video & Icons */}
                 <div className="flex-1 space-y-4">
                   <div className="relative group w-full aspect-square border rounded max-w-md mx-auto">
                     {isVideoActive ? (
@@ -139,7 +122,6 @@ export default function DiamondDetailModal({
                       <ImageView data={activeData} />
                     )}
 
-                    {/* <div className="absolute inset-0 rounded-lg" /> */}
                   </div>
                   <div className="flex justify-center items-center gap-3">
                     <Button
@@ -181,7 +163,6 @@ export default function DiamondDetailModal({
                   </div>
                 </div>
 
-                {/* Right: Details */}
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold  mb-4">
                     Diamond Specifications
@@ -287,9 +268,6 @@ export default function DiamondDetailModal({
               </ModalBody>
 
               <ModalFooter className="mt-6 flex md:flex-row flex-col-reverse">
-                {/* <Button variant="flat" onPress={onClose} color="default">
-                  Close
-                </Button> */}
                 <AskQuestionModal data={activeData} />
 
                 <Button

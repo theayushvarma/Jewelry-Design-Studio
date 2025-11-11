@@ -1,14 +1,12 @@
 import { Loader } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 
-// Utility: Check if URL is a video file
 const isVideoUrl = (url) => {
   if (!url) return false;
   const videoExtensions = /\.(mp4|webm|ogg|mov|avi|wmv|flv|mkv)(\?.*)?$/i;
   return videoExtensions.test(url);
 };
 
-// Utility: Check if URL is a website
 const isWebsiteUrl = (url) => {
   if (!url) return false;
   return /^https?:\/\//i.test(url);
@@ -20,7 +18,6 @@ export default function VideoView({
   onClick = () => {},
   alt = "Video Content",
 }) {
-  // url = url?.replace("http://", "https://");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -31,7 +28,6 @@ export default function VideoView({
     return "invalid";
   }, [url]);
 
-  // Handle <video> tag loading
   useEffect(() => {
     if (contentType !== "video") return;
 
@@ -56,7 +52,6 @@ export default function VideoView({
     };
   }, [url, contentType]);
 
-  // Handle <iframe> loading using HEAD request to catch 404
   useEffect(() => {
     if (contentType !== "website") return;
 
@@ -77,14 +72,6 @@ export default function VideoView({
       .finally(() => {
         setIsLoading(false);
       });
-
-    // fetch(url, { method: "HEAD", mode: "no-cors" })
-    //   .then(() => {
-    //     // Cannot access res.ok or headers in no-cors mode
-    //     console.log("Request made, but response is opaque");
-    //   })
-    //   .catch(() => setError("Invalid Video URL"))
-    //   .finally(() => setIsLoading(false));
   }, [url, contentType]);
 
   return (
@@ -92,21 +79,18 @@ export default function VideoView({
       className="flex items-center justify-center w-full h-full overflow-hidden relative"
       onClick={onClick}
     >
-      {/* Loading Spinner */}
       {isLoading && (
         <div className="flex items-center justify-center w-full h-full">
           <Loader className="animate-spin" />
         </div>
       )}
 
-      {/* Error State */}
       {!isLoading && error && (
         <div className="flex items-center justify-center w-full h-full text-danger">
           {error}
         </div>
       )}
 
-      {/* Valid Video Render */}
       {!isLoading && !error && contentType === "video" && (
         <video
           src={url}
@@ -118,7 +102,6 @@ export default function VideoView({
         />
       )}
 
-      {/* Valid Website Render */}
       {!isLoading && !error && contentType === "website" && (
         <iframe
           src={url}
@@ -133,7 +116,6 @@ export default function VideoView({
         />
       )}
 
-      {/* No URL at all */}
       {!isLoading && !url && (
         <div className="flex items-center justify-center w-full h-full text-danger">
           Video Not Found

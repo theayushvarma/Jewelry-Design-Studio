@@ -9,7 +9,6 @@ import { RootState } from "@/store";
 import { formatPrice } from "@/utils/common";
 import { useConfig } from "@/hooks/useConfig";
 
-// Define TypeScript interfaces
 interface Diamond {
   certificate_no: string;
   carat: number;
@@ -24,21 +23,18 @@ interface GridViewProps {
   setActiveData: (data: Diamond) => void;
 }
 
-// Optimized GridView component
 const GridView: React.FC<GridViewProps> = memo(({ onOpen, setActiveData }) => {
   const { loading, data, error } = useSelector(
     (state: RootState) => state.diamondSearchApi
   );
   const { toggleFilter } = useDiamondSearchFilter();
 
-  // Memoize getDiamondTitle to avoid recreating the function
   const getDiamondTitle = useCallback((diamond: Diamond) => {
     return `${diamond.carat} Carat · ${diamond.color} · ${diamond.clarity} · ${diamond.shape}`;
   }, []);
 
   const { data: configData } = useConfig();
 
-  // Determine the rendering state
   if (loading) {
     return <GridViewSkeleton times={20} />;
   }

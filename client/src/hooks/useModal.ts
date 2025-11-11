@@ -1,4 +1,3 @@
-// src/hooks/useModal.ts
 import { useDisclosure } from "@heroui/react";
 
 export const useModal = () => {

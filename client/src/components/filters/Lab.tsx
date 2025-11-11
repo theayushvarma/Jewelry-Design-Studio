@@ -7,10 +7,8 @@ const Lab = () => {
 
   return (
     <div className="w-full space-y-2">
-      {/* Label + Tooltip */}
       <LabelTooltip keyName="lab" />
 
-      {/* Buttons - Responsive layout */}
       <div className="flex items-center gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 py-1 px-1">
         {data?.map((lab, index) => (
           <Tooltip key={lab.key} content={lab.label} placement="top">

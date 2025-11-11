@@ -61,7 +61,6 @@ export const {
 
 export default diamondInquirySlice.reducer;
 
-// ✅ New Async Function (not using createAsyncThunk)
 export const submitDiamondInquiry =
   (payload: InquiryPayload) => async (dispatch) => {
     const { showToast } = useGlobalToast();

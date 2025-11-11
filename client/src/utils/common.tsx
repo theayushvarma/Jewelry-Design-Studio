@@ -55,7 +55,6 @@ export function transformDiamondData(raw: any[]): any[] {
 export const sanitizeText = (
   input: string | null | undefined
 ): string | null | undefined => {
-  // Use regex to match only lowercase alphabets and numbers
   return !!input
     ? String(input)
         .toLowerCase()
@@ -66,15 +65,12 @@ export const sanitizeText = (
 export const sanitizeNumbers = (
   input: string | null | undefined
 ): string | null | undefined => {
-  // Use regex to match only numbers (0-9)
   return !!input ? String(input).replace(/[^0-9]/g, "") : input;
 };
-// accpexct numbers comma and space
 
 export const sanitizeNumbersCommasSpaces = (
   input: string | null | undefined
 ): string | null | undefined => {
-  // Allow only numbers, commas, and spaces
   return !!input ? String(input).replace(/[^0-9, ]/g, "") : input;
 };
 
@@ -111,8 +107,8 @@ export const getNameLogo = (text) => {
   try {
     return text
       .split(" ")
-      .filter(Boolean) // remove empty strings
-      .slice(0, 2) // only take the first two words
+      .filter(Boolean) 
+      .slice(0, 2) 
       .map((word) => word[0].toUpperCase())
       .join("");
   } catch (error) {
@@ -124,28 +120,21 @@ export const validateEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 export const validatePassword = (password: string) => password.length >= 6;
 
-/**
- * Utility function to open an external link.
- * @param url - The URL to open.
- * @param target - The target method (e.g., "_blank", "_self", "_parent", "_top"). Defaults to "_blank".
- */
+
 export function openExternalLink(
   url: string,
   target: "_blank" | "_self" | "_parent" | "_top" = "_blank"
 ): void {
   if (!url) {
-    // console.error("URL is required to open an external link.");
     return;
   }
 
   const width = 600;
   const height = 400;
 
-  // Get screen dimensions
   const left = window.screenX + (window.innerWidth - width) / 2;
   const top = window.screenY + (window.innerHeight - height) / 2;
 
-  // Open centered popup
   const newWindow = window.open(
     url,
     "popupWindow",
@@ -157,24 +146,16 @@ export function openExternalLink(
       "Failed to open the new window. It might be blocked by the browser."
     );
   } else {
-    newWindow.opener = null; // Prevent access to the opener for security
+    newWindow.opener = null; 
   }
 }
 
-/**
- * Formats a priceAUD to standard format, e.g., "$22,067.00".
- * @param {string | number} priceAUD - The priceAUD to format. Accepts strings or numbers with/without "$" or commas.
- * @returns {string} - The formatted priceAUD string.
- */
 export function formatPrice(priceAUD, currency = "$") {
-  // Convert priceAUD to string and remove any non-numeric characters except "."
   let cleanedPrice = String(priceAUD).replace(/[^\d.]/g, "");
 
-  // Convert to float and ensure we have a valid number
   let numericPrice = parseFloat(cleanedPrice);
   if (isNaN(numericPrice)) return numericPrice;
 
-  // Format to two decimal places and add commas as thousand separators
   return `${currency}${numericPrice
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
@@ -185,44 +166,15 @@ export function formatPriceWithPostFix(
   currencySymbol = "$",
   currencyCode = "USD"
 ) {
-  // Convert priceAUD to string and remove any non-numeric characters except "."
   let cleanedPrice = String(priceAUD).replace(/[^\d.]/g, "");
 
-  // Convert to float and ensure we have a valid number
   let numericPrice = parseFloat(cleanedPrice);
   if (isNaN(numericPrice)) return numericPrice;
 
-  // Format to two decimal places and add commas as thousand separators
   return `${currencySymbol}${numericPrice
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}(${currencyCode})`;
 }
-
-// export function getDiamondTitle(data, isFancyFull = false) {
-//   const parts = [];
-
-//   if (data?.shape && data?.shape != "-") parts.push(data.shape);
-//   if (data?.carat && data?.carat != "-")
-//     parts.push(`${roundOff(data.carat, 2)}ct`);
-//   if (data?.color && data?.color != "-") {
-//     if (data?.color == "fancy" && isFancyFull) {
-//       parts.push(data.fancy_color);
-//       parts.push(data.fancy_intensity);
-//       parts.push(data.fancy_overtone);
-//     } else {
-//       parts.push(data.color);
-//     }
-//   }
-//   if (data?.clarity && data?.clarity != "-")
-//     parts.push(roundOff(data.clarity, 2));
-//   if (data?.cut && data?.cut != "-") parts.push(data.cut);
-//   if (data?.polish && data?.polish != "-") parts.push(data.polish);
-//   if (data?.symmetry && data?.symmetry != "-") parts.push(data.symmetry);
-//   if (data?.fluorescence && data?.fluorescence != "-")
-//     parts.push(data.fluorescence);
-
-//   return parts.join(" ");
-// }
 
 export function getCertificateLink(diamond) {
   if (!diamond) {

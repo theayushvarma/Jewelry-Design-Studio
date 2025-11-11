@@ -62,7 +62,6 @@ export const diamondSearchFilterSlice = createSlice({
       state.filters = { ...state.filters, ...action.payload };
     },
 
-    // 👇 Add this for setting filters from config
     resetFilters: (
       state,
       action: PayloadAction<{
@@ -82,7 +81,6 @@ export const diamondSearchFilterSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
   updateView,
   setIsFancyActive,

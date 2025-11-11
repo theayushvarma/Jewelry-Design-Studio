@@ -22,15 +22,10 @@ export const useRecentlyViewed = () => {
     dispatch(clearRecentlyViewed());
   };
 
-//   const loadFromStorage = () => {
-//     dispatch(loadRecentlyViewed());
-//   };
-
   return {
     items,
     addItem,
     removeItem,
     clearAll,
-    // loadFromStorage,
   };
 };

@@ -13,7 +13,6 @@ const staticData = {
   success: true,
   message: "Parameter",
   data: {
-    // diamond_type: ["lab"],
     shape: [
       "round",
       "oval",
@@ -95,7 +94,7 @@ const staticData = {
 
 const initialState: ConfigState = {
   data: staticData.data,
-  token: "", // optional placeholder token
+  token: "",
   loading: false,
   error: null,
   filterOptions: staticData.data,
@@ -113,7 +112,6 @@ const configSlice = createSlice({
   initialState,
   reducers: {
     resetConfig(state) {
-      // restore to initial static data
       return initialState;
     },
   },

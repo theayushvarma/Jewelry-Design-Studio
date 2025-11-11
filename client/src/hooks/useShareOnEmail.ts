@@ -3,7 +3,7 @@ import {
   submitShareOnEmail,
   resetShareOnEmailState,
 } from "@/store/slices/shareOnEmailSlice";
-import { RootState } from "@/store"; // update path if needed
+import { RootState } from "@/store"; 
 
 export const useShareOnEmail = () => {
   const dispatch = useDispatch();

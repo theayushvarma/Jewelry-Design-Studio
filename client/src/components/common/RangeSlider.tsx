@@ -25,10 +25,8 @@ const RangeSlider = ({ keyName, resetSignal }) => {
     ? Array.isArray(rawData) && rawData.length === 1
     : false;
 
-  // inside your component
   const isManualChangeRef = useRef(false);
 
-  // When user changes range manually
   const handleSliderChange = (val) => {
     if (!isSingleValue) {
       isManualChangeRef.current = true;
@@ -61,7 +59,6 @@ const RangeSlider = ({ keyName, resetSignal }) => {
     }
   };
 
-  // Effect to sync with store-selected only when not changed manually
   useEffect(() => {
     if (!rawData) return;
 
@@ -95,7 +92,6 @@ const RangeSlider = ({ keyName, resetSignal }) => {
     setRange(newRange);
   }, [selected, rawData, min, max]);
 
-  // On mount: set initial selected values
   useEffect(() => {
     if (isRangeKey && selected?.min != null && selected?.max != null) {
       setRange([selected.min, selected.max]);
@@ -120,7 +116,6 @@ const RangeSlider = ({ keyName, resetSignal }) => {
     }
   }, [keyName]);
 
-  // Generate slider marks
   useEffect(() => {
     if (isRangeKey && Array.isArray(rawData)) {
       const generatedMarks = [];

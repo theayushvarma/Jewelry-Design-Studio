@@ -58,7 +58,6 @@ export const {
 
 export default shareOnEmailSlice.reducer;
 
-// ✅ New Async Function (not using createAsyncThunk)
 export const submitShareOnEmail =
   (payload: InquiryPayload) => async (dispatch) => {
     const { showToast } = useGlobalToast();

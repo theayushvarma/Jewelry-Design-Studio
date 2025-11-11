@@ -21,7 +21,6 @@ import DataNotFound from "./DataNotFound";
 import { useConfig } from "@/hooks/useConfig";
 import { formatPrice } from "@/utils/common";
 
-// Define TypeScript interfaces
 interface Column {
   name: string;
   uid: string;
@@ -40,7 +39,6 @@ interface Diamond {
   lab: string;
 }
 
-// Define columns outside the component
 const columns: Column[] = [
   { name: "Diamond", uid: "image" },
   { name: "Shape", uid: "shape" },
@@ -54,10 +52,8 @@ const columns: Column[] = [
   { name: "Action", uid: "certificate_no" },
 ];
 
-// Memoized EyeIcon component
 const EyeIcon = memo(() => <Eye size="20px" />);
 
-// Optimized ListView component
 const CompareListView: React.FC = memo(({ onOpen, setActiveData }) => {
   const [diamonds, setDiamonds] = useState<Diamond[]>([]);
   const [imgError, setImgError] = useState<Set<string>>(new Set());

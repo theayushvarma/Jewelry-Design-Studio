@@ -1,4 +1,3 @@
-// hooks/useConfig.ts
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "@/store";

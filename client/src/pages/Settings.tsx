@@ -56,11 +56,10 @@ export default function SettingPage() {
     if (configData?.colorcode) {
       const hsl = hexToHSL(configData.colorcode);
       const root = document.documentElement;
-      root.style.setProperty("--heroui-primary", hsl); // "200 90% 40%" etc
+      root.style.setProperty("--heroui-primary", hsl); 
     }
   }, [configData?.colorcode]);
 
-  // Fetch on filter change
   useEffect(() => {
     fetchDiamonds({ page: 1 });
   }, []);
@@ -90,24 +89,6 @@ export default function SettingPage() {
       <section className="flex flex-col items-center justify-center">
         <div id="filter-section"></div>
         <div className="mb-3 md:text-medium text-xs">
-          {/*   {loading ? (
-            <b className="text-primary">Searching...</b>
-          ) : data?.length ? (
-            <>
-              Showing{" "}
-              <b className="text-primary underline underline-offset-2">
-                {data?.length} out of {total}
-              </b>{" "}
-              {!!data[0]?.diamond_type
-                ? data[0]?.diamond_type === "L"
-                  ? "Lab Grown"
-                  : "Natural"
-                : ""}{" "}
-              Diamonds
-            </>
-          ) : (
-            ""
-          )}*/}
         </div>
         <SettingGridView setActiveData={setActiveData} onOpen={onOpen} />
 

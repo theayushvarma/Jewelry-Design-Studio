@@ -44,14 +44,12 @@ export default function ImageView({
       className="relative flex items-center justify-center w-full h-full overflow-hidden "
       onClick={onClick}
     >
-      {/* Spinner Loader */}
       {!isLoaded && !showDefault && (
         <div className="absolute z-10 flex items-center justify-center w-full h-full bg-white/40 backdrop-blur-sm">
           <Loader className="animate-spin" />
         </div>
       )}
 
-      {/* Final Image */}
       {!showDefault && (
         <img
           src={src}
@@ -63,7 +61,6 @@ export default function ImageView({
         />
       )}
 
-      {/* Shape SVG fallback */}
       {showDefault && shapeSVG && (
         <div
           className="w-full h-full flex justify-center items-center scale-75"
@@ -71,7 +68,6 @@ export default function ImageView({
         />
       )}
 
-      {/* Default image fallback */}
       {showDefault && !shapeSVG && (
         <ImageContainer
           src="/notification_dummy_image.png"

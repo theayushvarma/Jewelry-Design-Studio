@@ -18,7 +18,6 @@ export const useDiamondRingSelection = () => {
     (state: RootState) => state.diamondRingSelection
   );
 
-  // 🪄 Diamond actions
   const addDiamond = (data: any) => {
     dispatch(selectDiamond(data));
     if (!!setting && Object.keys(setting)?.length) {
@@ -33,7 +32,6 @@ export const useDiamondRingSelection = () => {
     dispatch(removeDiamond());
   };
 
-  // 💍 Setting actions
   const addSetting = (data: any) => {
     dispatch(selectSetting(data));
 
@@ -48,7 +46,6 @@ export const useDiamondRingSelection = () => {
     navigate("/settings");
   };
 
-  // 🧹 Clear all selections
   const clearAllSelections = () => {
     dispatch(clearSelections());
     navigate("/diamonds");

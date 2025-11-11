@@ -21,29 +21,23 @@ const recentlyViewedSlice = createSlice({
     addRecentlyViewed(state, action: PayloadAction<Diamond>) {
       const newItem = action.payload;
 
-      // ❌ Skip if no valid id or certificate_no
       if (!newItem?.id) return;
 
-      // 🧹 Remove any invalid/empty id entries first
       state.items = state.items.filter(
         (item) => !!item?.id
       );
 
-      // 🔍 Check for existing entry
       const existing = state.items.find((item) => item.id === newItem.id);
 
       if (!existing) {
-        // Add new and limit to last 20
         state.items = [newItem, ...state.items].slice(0, 20);
       } else {
-        // Move existing to top
         state.items = [
           newItem,
           ...state.items.filter((item) => item.id !== newItem.id),
         ].slice(0, 20);
       }
 
-      // 💾 Save to localStorage
       localStorage.setItem("recentlyViewed", JSON.stringify(state.items));
     },
 
@@ -61,7 +55,6 @@ const recentlyViewedSlice = createSlice({
       const saved = localStorage.getItem("recentlyViewed");
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Filter invalid items on load
         state.items = parsed.filter(
           (item: Diamond) => item?.id && item?.certificate_no
         );

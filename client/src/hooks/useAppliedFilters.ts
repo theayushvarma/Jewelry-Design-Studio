@@ -13,13 +13,12 @@ const useAppliedFilters = () => {
   } = useDiamondSearchFilter();
   const { defaultFilters = {} } = useConfig();
 
-  // Utility: Check if two values are equal
   const isEqual = (a, b) => {
     if (Array.isArray(a) && Array.isArray(b)) {
       return a.length === b.length && a.every((v, i) => v === b[i]);
     }
     if (typeof a === "object" && typeof b === "object") {
-      return JSON.stringify(a) === JSON.stringify(b); // fallback for range-like object
+      return JSON.stringify(a) === JSON.stringify(b); 
     }
     return a === b;
   };
@@ -62,7 +61,6 @@ const useAppliedFilters = () => {
         displayKey = "sort_by";
         displayValue = result?.label || "";
 
-        // Remove existing sort-related keys from changed list
         const filtered = changed.filter(
           (item) =>
             item.key !== "sort_by" &&
@@ -78,7 +76,6 @@ const useAppliedFilters = () => {
       changed.push({ key: displayKey, value: displayValue });
     }
 
-    // Remove 'color' if 'fancy_color' is applied
     if (
       (changed.fancy_color &&
         Array.isArray(changed.fancy_color) &&

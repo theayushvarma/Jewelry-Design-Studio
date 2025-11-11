@@ -1,4 +1,3 @@
-// hooks/useGlobalToast.ts
 import { addToast } from "@heroui/react";
 
 type ToastType = "success" | "error" | "info";

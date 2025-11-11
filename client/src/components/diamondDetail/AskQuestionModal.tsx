@@ -67,7 +67,6 @@ export default function AskQuestionModal({
     setShouldSubmit(true);
   };
 
-  // Handle inquiry submission
   useEffect(() => {
     if (!shouldSubmit) return;
 
@@ -81,7 +80,6 @@ export default function AskQuestionModal({
     setShouldSubmit(false);
   }, [shouldSubmit]);
 
-  // Handle form reset and modal close on success
   useEffect(() => {
     if (success) {
       setFormData(initialFormData);

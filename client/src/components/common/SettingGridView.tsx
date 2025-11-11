@@ -17,7 +17,6 @@ import { formatPrice } from "@/utils/common";
 import { useConfig } from "@/hooks/useConfig";
 import { useDiamondRingSelection } from "@/hooks/useDiamondRingSelection";
 
-// Define TypeScript interfaces
 interface Diamond {
   certificate_no: string;
   carat: number;
@@ -32,7 +31,6 @@ interface GridViewProps {
   setActiveData: (data: Diamond) => void;
 }
 
-// Optimized GridView component
 const SettingGridView: React.FC<GridViewProps> = memo(
   ({ onOpen, setActiveData }) => {
     const { loading, data, error } = useSelector(
@@ -41,14 +39,12 @@ const SettingGridView: React.FC<GridViewProps> = memo(
     const { toggleFilter } = useDiamondSearchFilter();
     const { addSetting } = useDiamondRingSelection();
 
-    // Memoize getDiamondTitle to avoid recreating the function
     const getDiamondTitle = useCallback((diamond: Diamond) => {
       return `${diamond.carat} Carat · ${diamond.color} · ${diamond.clarity} · ${diamond.shape}`;
     }, []);
 
     const { data: configData } = useConfig();
 
-    // Determine the rendering state
     if (loading) {
       return <GridViewSkeleton times={20} />;
     }
@@ -89,7 +85,6 @@ const SettingGridView: React.FC<GridViewProps> = memo(
                 className="w-full mt-2"
                 isIconOnly
                 variant="solid"
-                // onPress={copyLink}
                 aria-label="Copy video link"
                 color="primary"
                 onClick={() => addSetting(item)}

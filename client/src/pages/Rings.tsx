@@ -33,7 +33,6 @@ export default function RingPage() {
 
   const { data: configData } = useConfig();
 
-  // Apply primary color dynamically
   useEffect(() => {
     if (configData?.colorcode) {
       const hsl = hexToHSL(configData.colorcode);
@@ -41,7 +40,6 @@ export default function RingPage() {
     }
   }, [configData?.colorcode]);
 
-  // 🧭 Redirect if selection incomplete
   useEffect(() => {
     if (!diamond) navigate("/diamonds");
     else if (!setting) navigate("/settings");
@@ -57,7 +55,6 @@ export default function RingPage() {
     }
   };
 
-  // 💰 Compute Total (using useMemo for optimization)
   const totalPrice = useMemo(() => {
     const diamondPrice = Number(diamond?.priceAUD || diamond?.price || 0);
     const settingPrice = Number(setting?.price || 0);
@@ -268,7 +265,6 @@ export default function RingPage() {
 
       <Divider className="my-10" />
 
-      {/* ✅ Combined Summary Section */}
       <div className="text-center space-y-4">
         <p className="text-lg">
           Your custom ring includes the selected diamond and setting.
@@ -292,7 +288,6 @@ export default function RingPage() {
   );
 }
 
-// ✅ Reusable detail display
 function DetailItem({ label, value }: { label: string; value?: string }) {
   return (
     <div className="flex justify-between border-b py-2">

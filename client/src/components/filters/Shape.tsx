@@ -9,10 +9,7 @@ const Shape = () => {
   const { handleDataClick, isDataSelected, data } = useSelectionFilter("shape");
   return (
     <div className="w-full space-y-2">
-      {/* Label + Tooltip */}
       <LabelTooltip keyName="shape" />
-
-      {/* Shape Icons */}
       <ScrollShadow orientation="horizontal" className="w-full flex-1 py-2">
         <div className="flex gap-2 items-center min-w-full">
           {data.map((shape) => {

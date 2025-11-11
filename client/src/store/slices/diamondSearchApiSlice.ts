@@ -78,7 +78,7 @@ const diamondSearchApiSlice = createSlice({
       state.page = 1;
       state.total = 0;
       state.error = action.payload;
-      state.hasMore = false; // ✅ fix bug here
+      state.hasMore = false;
     },
     resetData() {
       return initialState;

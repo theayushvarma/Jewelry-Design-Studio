@@ -9,10 +9,7 @@ const SearchByReportNumber = () => {
 
   return (
     <div className="w-full space-y-2">
-      {/* Label + Tooltip */}
       <LabelTooltip keyName="id" />
-
-      {/* Buttons - Responsive layout */}
       <div className="flex items-center gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 p-0">
         <Input
           onChange={(e) => updateFilters({ id: e.target.value.trim() })}

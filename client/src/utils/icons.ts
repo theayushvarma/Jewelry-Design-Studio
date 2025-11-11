@@ -1050,8 +1050,6 @@ export const getCommonIcons = (
 
 export const getFancyColors = (colorType, isActive = false) => {
   colorType = sanitizeText(colorType);
-  //  const colors = getColors()
-  //  const colorName = isActive ? colors.prussianBlue : colors.white;
   switch (colorType) {
     case "black":
       return `

@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/navbar";
 import SelectionNavBar from "@/components/SelectionNavBar";
 import { Link } from "react-router-dom";
 export default function DefaultLayout({
@@ -9,7 +8,6 @@ export default function DefaultLayout({
   return (
     <div className="relative flex flex-col h-screen no-scrollbar">
       <SelectionNavBar />
-      {/* <Navbar /> */}
       <main className="container mx-auto max-w-7xl p-6 flex-grow ">
         {children}
       </main>
