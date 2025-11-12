@@ -21,7 +21,13 @@ export const useDiamondRingSelection = () => {
   const addDiamond = (data: any) => {
     dispatch(selectDiamond(data));
     if (!!setting && Object.keys(setting)?.length) {
-      navigate("/ring");
+      const matchingShapes = setting?.shape?.split(",")
+      const dShape = data?.shape
+      if (matchingShapes.includes(dShape.toLowerCase())) {
+        navigate("/ring");
+      }else{
+        removeSettingSelection()
+      }
     } else {
       navigate("/settings");
     }

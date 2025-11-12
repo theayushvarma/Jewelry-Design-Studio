@@ -106,7 +106,18 @@ app.post("/api/settings", (req, res) => {
   const { page = 1, limit = 10, filters = {}, id } = req.body;
   let data = getSettings();
 
-  // ✅ 3. Pagination
+  if (filters.shape) {
+    const shapeFilter = filters.shape.toLowerCase().trim();
+    data = data.filter((item) => {
+      if (!item.shape) return false;
+      const shapes = item.shape
+        .toLowerCase()
+        .split(",")
+        .map((s) => s.trim());
+      return shapes.includes(shapeFilter);
+    });
+  }
+
   const total = data.length;
   const start = (page - 1) * limit;
   const paginated = data.slice(start, start + Number(limit));

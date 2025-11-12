@@ -9,9 +9,11 @@ import {
   appendData,
 } from "@/store/slices/settingSearchApiSlice";
 import api from "@/axios";
+import { useDiamondRingSelection } from "./useDiamondRingSelection";
 
 export const useSettingSearchApi = () => {
   const dispatch = useDispatch();
+  const { diamond } = useDiamondRingSelection();
   const state = useSelector((state: RootState) => state.settingSearchApi);
 
   const fetchDiamonds = async (filters: any, isLoadMore = false) => {
@@ -28,11 +30,13 @@ export const useSettingSearchApi = () => {
         ...otherFilters
       } = filters;
 
+      const shape = diamond?.shape;
+
       const body = {
         page,
         limit,
         sort: { field: sortBy, order },
-        filters: otherFilters, 
+        filters: { ...otherFilters, shape:shape },
         search,
       };
 

@@ -39,7 +39,7 @@ const BackToFilter = () => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <Tooltip content="Back to Filters" placement="top">
+      <Tooltip content="Back to Top" placement="top">
         <Button
           size="md"
           color="primary"

@@ -292,7 +292,7 @@ function DetailItem({ label, value }: { label: string; value?: string }) {
   return (
     <div className="flex justify-between border-b py-2">
       <span>{label || "-"}</span>
-      <span className="font-medium">{value || "-"}</span>
+      <span className="font-medium uppercase">{value || "-"}</span>
     </div>
   );
 }

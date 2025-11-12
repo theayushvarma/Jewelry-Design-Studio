@@ -56,7 +56,7 @@ export default function SettingPage() {
     if (configData?.colorcode) {
       const hsl = hexToHSL(configData.colorcode);
       const root = document.documentElement;
-      root.style.setProperty("--heroui-primary", hsl); 
+      root.style.setProperty("--heroui-primary", hsl);
     }
   }, [configData?.colorcode]);
 
@@ -85,10 +85,24 @@ export default function SettingPage() {
 
   return (
     <DefaultLayout>
+      <BackToFilter />
       <ToastProvider placement={placement} toastOffset={20} />
       <section className="flex flex-col items-center justify-center">
         <div id="filter-section"></div>
         <div className="mb-3 md:text-medium text-xs">
+          {loading ? (
+            <b className="text-primary">Searching...</b>
+          ) : data?.length ? (
+            <>
+              Showing{" "}
+              <b className="text-primary underline underline-offset-2">
+                {data?.length} out of {total}
+              </b>{" "}
+              Settings
+            </>
+          ) : (
+            ""
+          )}
         </div>
         <SettingGridView setActiveData={setActiveData} onOpen={onOpen} />
 
