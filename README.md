@@ -106,7 +106,7 @@ cd JEWELRY-DESIGN-STUDIO
 
 ```bash
 cd client
-npm install
+npm install --legacy-peer-deps
 # or yarn
 ```
 
@@ -302,7 +302,7 @@ Frontend:
 
 ```bash
 cd client
-npm install
+npm install --legacy-peer-deps
 npm run dev        # run frontend dev server
 npm run build      # create production build
 npm run preview    # preview production build
